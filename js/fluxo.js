@@ -11,8 +11,13 @@ const ICONES = {
 };
 const OK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 8.5 2.5 2.5L12 5.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-export const chaveDica = () => (matchMedia('(hover: none)').matches ? 'fluxo.dicaToque' : 'fluxo.dica');
+// celular com animação: a rolagem move uma câmera pelo fluxo horizontal (zoom, bloco a bloco, zoom de volta)
+const mqZoom = matchMedia('(max-width: 900px) and (prefers-reduced-motion: no-preference)');
+export const chaveDica = () => (mqZoom.matches ? 'fluxo.dicaRolar' : matchMedia('(hover: none)').matches ? 'fluxo.dicaToque' : 'fluxo.dica');
 const ativos = new Set();
+let centros = [], dims = { larg: 0, alt: 0 };
+const mundo = () => document.getElementById('fluxo-mundo');
+const UNIDADES = FLUXO.length + 2; // zoom de entrada + 1 trecho por bloco + zoom de saída
 let ponteiro = 'mouse';
 let atual = -1, lang = 'pt';
 const tela = () => document.getElementById('fluxo-tela');
@@ -25,14 +30,21 @@ export function renderFluxo(l) {
       <span class="no-titulo">${esc(n[lang].titulo)}</span>
       <span class="no-sub">${esc(n[lang].sub)}</span>
     </button></li>`).join('');
-  desenharFios();
+  medir();
   atualizar();
+  if (mqZoom.matches) camera();
 }
 
-// fios em curva entre as "portas" dos blocos; horizontais no desktop, verticais quando empilhados
-function desenharFios() {
-  const t = tela(), svg = t.querySelector('.fluxo-fios'), base = t.getBoundingClientRect();
-  const cx = [...t.querySelectorAll('.no-caixa')].map((c) => c.getBoundingClientRect());
+// Mede sem a transformação da câmera: centros dos blocos e fios em coordenadas do "mundo".
+// Fios em curva entre as "portas" dos blocos; horizontais no desktop, verticais quando empilhados.
+function medir() {
+  const m = mundo(), svg = m.querySelector('.fluxo-fios'), antes = m.style.transform;
+  m.style.transform = 'none';
+  const base = m.getBoundingClientRect();
+  const cx = [...m.querySelectorAll('.no-caixa')].map((c) => c.getBoundingClientRect());
+  centros = cx.map((r) => [r.left + r.width / 2 - base.left, r.top + r.height / 2 - base.top + 28]); // +28: enquadra o título abaixo do bloco
+  dims = { larg: m.offsetWidth, alt: m.offsetHeight };
+  m.style.transform = antes;
   svg.setAttribute('viewBox', `0 0 ${base.width} ${base.height}`);
   svg.innerHTML = cx.slice(0, -1).map((a, i) => {
     const b = cx[i + 1];
@@ -72,6 +84,39 @@ function atualizar() {
     <p class="det-links"><a href="${GITHUB}/${FLUXO_REPO}" target="_blank" rel="noopener">${u.verProjeto}</a><a href="${FLUXO_DEMO}" target="_blank" rel="noopener">${u.verDemo}</a></p>`;
 }
 
+const suave = (x) => x * x * (3 - 2 * x);
+const entre = (a, b, k) => a + (b - a) * k;
+const limita = (x) => Math.min(1, Math.max(0, x));
+
+// posição da câmera a partir da rolagem pelo trilho
+function camera() {
+  const t = tela(), m = mundo(), trilho = document.querySelector('.fluxo-trilho');
+  if (!centros.length || !dims.larg) return;
+  const r = trilho.getBoundingClientRect(), u = limita(-r.top / (r.height - innerHeight)) * UNIDADES;
+  const W = t.clientWidth, H = t.clientHeight, ult = FLUXO.length - 1;
+  const sFit = Math.min(W / dims.larg, H / dims.alt) * 0.94, sZ = Math.min(1.15, H / 290);
+  const meio = [dims.larg / 2, dims.alt / 2];
+  let s, c, cur;
+  if (u < 1) { // entrada: do fluxo inteiro ao zoom no 1º bloco
+    const k = suave(u);
+    s = entre(sFit, sZ, k); c = [entre(meio[0], centros[0][0], k), entre(meio[1], centros[0][1], k)]; cur = u > 0.55 ? 0 : -1;
+  } else if (u < UNIDADES - 1) { // um trecho por bloco: segura e depois desliza para o próximo
+    const seg = Math.min(ult, Math.floor(u - 1)), k = seg < ult ? suave(limita((u - 1 - seg - 0.5) / 0.5)) : 0;
+    const a = centros[seg], b = centros[Math.min(ult, seg + 1)];
+    s = sZ; c = [entre(a[0], b[0], k), entre(a[1], b[1], k)]; cur = k > 0.5 ? seg + 1 : seg;
+  } else { // saída: afasta e mostra o fluxo inteiro aceso
+    const k = suave(u - (UNIDADES - 1));
+    s = entre(sZ, sFit, k); c = [entre(centros[ult][0], meio[0], k), entre(centros[ult][1], meio[1], k)]; cur = ult;
+  }
+  m.style.transform = `translate(${W / 2 - c[0] * s}px, ${H / 2 - c[1] * s + 12}px) scale(${s})`;
+  if (cur !== atual) { // acende do 1º até o atual (e apaga ao voltar)
+    ativos.clear();
+    for (let i = 0; i <= cur; i++) ativos.add(i);
+    atual = cur;
+    atualizar();
+  }
+}
+
 function ativar(i) {
   if (Number.isNaN(i) || (i === atual && ativos.has(i))) return;
   ativos.add(i);
@@ -88,6 +133,11 @@ export function iniciarFluxo() {
   t.addEventListener('focusin', (e) => { if (no(e)) ativar(+no(e).dataset.i); });
   t.addEventListener('click', (e) => {
     if (!no(e)) return;
+    if (mqZoom.matches) { // no modo câmera, tocar num bloco rola até o trecho dele
+      const tr = document.querySelector('.fluxo-trilho'), r = tr.getBoundingClientRect();
+      scrollTo({ top: scrollY + r.top + ((1.2 + +no(e).dataset.i) / UNIDADES) * (r.height - innerHeight), behavior: 'smooth' });
+      return;
+    }
     ativar(+no(e).dataset.i);
     // no celular os 5 blocos empilhados empurram o painel para fora da tela
     if (ponteiro !== 'mouse') document.getElementById('fluxo-detalhe').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -98,5 +148,10 @@ export function iniciarFluxo() {
     document.getElementById('fluxo-detalhe').innerHTML = `<p class="det-dica" data-i18n="${chaveDica()}">${esc(TEXTOS[lang][chaveDica()])}</p>`;
     atualizar();
   });
-  new ResizeObserver(() => { desenharFios(); atualizar(); }).observe(t); // fontes, idioma e largura mudam as posições
+  new ResizeObserver(() => { // fontes, idioma, largura e rotação mudam as posições
+    if (!mqZoom.matches) mundo().style.transform = '';
+    medir(); atualizar();
+    if (mqZoom.matches) camera();
+  }).observe(t);
+  addEventListener('scroll', () => { if (mqZoom.matches) camera(); }, { passive: true });
 }
