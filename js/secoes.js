@@ -6,18 +6,20 @@ const local = (v, lang) => (Array.isArray(v) || typeof v === 'string' ? v : v[la
 const SETA = '<svg class="seta" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 export function renderTrajetoria(lang) {
-  document.getElementById('linha-tempo').innerHTML = TRAJETORIA.map((t) => `
+  const marco = (t) => `
     <li class="marco">
       <p class="marco-quando">${esc(t.quando[lang])}</p>
       <div class="marco-txt">
         <h3>${esc(t[lang].cargo)} <span>${esc(t.org)}</span></h3>
         <ul>${t[lang].itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
       </div>
-    </li>`).join('') + `
+    </li>`;
+  // ordem por início: experiências durante a graduação, a graduação, e o que veio antes dela
+  document.getElementById('linha-tempo').innerHTML = TRAJETORIA.filter((t) => !t.antesDaGraduacao).map(marco).join('') + `
     <li class="marco marco-base">
       <p class="marco-quando">${esc(FORMACAO.quando[lang])}</p>
       <div class="marco-txt"><h3>${esc(FORMACAO[lang])} <span>${esc(FORMACAO.org)}</span></h3></div>
-    </li>`;
+    </li>` + TRAJETORIA.filter((t) => t.antesDaGraduacao).map(marco).join('');
 
   document.getElementById('certificacoes').innerHTML = CERTIFICACOES.map((c) => `
     <li class="${c.destaque ? 'cert-destaque' : ''}">
