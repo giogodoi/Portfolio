@@ -35,6 +35,12 @@ export const TEXTOS = {
     'metodo.titulo': 'Um método, cinco etapas.',
     'metodo.lead': 'As boas práticas que sigo em todo projeto, cada uma com um trabalho real onde apliquei.',
     'metodo.etapas': 'Etapas',
+    'nav.agentes': 'Agentes',
+    'fluxo.titulo': 'Agentes de IA, do primeiro contato à memória.',
+    'fluxo.lead': 'Monto fluxos no n8n que ligam canais de conversa, modelos de IA e bancos de dados, com a LGPD dentro do fluxo e não remendada no fim.',
+    'fluxo.aria': 'Fluxo de agente de IA no n8n',
+    'fluxo.dica': 'Passe o mouse ou toque nos blocos para executar o fluxo.',
+    'fluxo.reiniciar': 'Executar de novo',
     'trajetoria.titulo': 'De onde vem o método.',
     'trajetoria.lead': 'Pesquisa, empresa júnior e agência de inovação: cada etapa foi aprendida em algum desses lugares.',
     'trajetoria.certs': 'Certificações',
@@ -76,6 +82,12 @@ export const TEXTOS = {
     'metodo.titulo': 'One method, five stages.',
     'metodo.lead': 'The practices I follow on every project, each backed by real work where I applied it.',
     'metodo.etapas': 'Stages',
+    'nav.agentes': 'Agents',
+    'fluxo.titulo': 'AI agents, from first contact to memory.',
+    'fluxo.lead': 'I build n8n workflows that connect chat channels, AI models and databases, with data protection built into the flow instead of patched on at the end.',
+    'fluxo.aria': 'AI agent workflow in n8n',
+    'fluxo.dica': 'Hover or tap the blocks to run the workflow.',
+    'fluxo.reiniciar': 'Run again',
     'trajetoria.titulo': 'Where the method comes from.',
     'trajetoria.lead': 'Research, a student-run company and an innovation agency: each stage was learned in one of these places.',
     'trajetoria.certs': 'Certifications',
@@ -102,6 +114,10 @@ export const UI = {
     abreGithub: 'abre no GitHub',
     lerLinkedin: 'Ler no LinkedIn',
     etapa: 'Etapa',
+    bloco: 'Bloco {n} de 5',
+    executados: '{n} de 5 blocos executados',
+    verProjeto: 'Ver o projeto no GitHub',
+    verDemo: 'Ver a demonstração em vídeo',
   },
   en: {
     etapaDe: 'Stage {n} of 5',
@@ -113,8 +129,41 @@ export const UI = {
     abreGithub: 'opens on GitHub',
     lerLinkedin: 'Read on LinkedIn',
     etapa: 'Stage',
+    bloco: 'Node {n} of 5',
+    executados: '{n} of 5 nodes executed',
+    verProjeto: 'See the project on GitHub',
+    verDemo: 'Watch the video demo',
   },
 };
+
+// Fluxo de agente no n8n: 5 blocos que acendem ao passar o mouse, tocar ou focar
+export const FLUXO = [
+  {
+    id: 'canal', tags: ['Webhook', 'Evolution API', 'Chat'],
+    pt: { titulo: 'WhatsApp ou chat', sub: 'Webhook de entrada', texto: 'As mensagens chegam por webhook, vindas do WhatsApp pela Evolution API ou de um chat no site. O fluxo identifica o canal e normaliza tudo para um formato único.' },
+    en: { titulo: 'WhatsApp or chat', sub: 'Incoming webhook', texto: 'Messages arrive by webhook, from WhatsApp through the Evolution API or from a website chat. The flow identifies the channel and normalizes everything into a single format.' },
+  },
+  {
+    id: 'lgpd', tags: ['LGPD', 'Consentimento', 'PII'],
+    pt: { titulo: 'Dados do cliente', sub: 'Segurança e LGPD', texto: 'Coleto só o necessário para atender, peço consentimento, mascaro dados pessoais antes de qualquer chamada externa e registro a finalidade de cada dado. Credenciais ficam em variáveis do servidor, nunca dentro do fluxo.' },
+    en: { titulo: 'Customer data', sub: 'Security and LGPD', texto: 'I collect only what is needed, ask for consent, mask personal data before any external call and record the purpose of each field. Credentials live in server variables, never inside the workflow.' },
+  },
+  {
+    id: 'modelo', tags: ['Fine-tuning', 'LLM', 'JSON'],
+    pt: { titulo: 'Modelo de IA', sub: 'Fine-tuning no domínio', texto: 'Um modelo ajustado com exemplos do domínio responde no tom e no formato certos. A saída sai estruturada em JSON para os próximos blocos usarem sem adivinhar.' },
+    en: { titulo: 'AI model', sub: 'Domain fine-tuning', texto: 'A model fine-tuned on domain examples answers in the right tone and format. The output is structured JSON so the next nodes can use it without guessing.' },
+  },
+  {
+    id: 'guardrails', tags: ['Guardrails', 'Tools', 'Agente'],
+    pt: { titulo: 'Guardrails e tools', sub: 'Validação e ferramentas', texto: 'Antes de responder, a saída passa por checagem de escopo e formato. Quando precisa de um dado real, o agente chama tools, como consulta ao banco ou status do pedido, em vez de inventar.' },
+    en: { titulo: 'Guardrails and tools', sub: 'Validation and tools', texto: 'Before replying, the output goes through scope and format checks. When it needs real data, the agent calls tools, like a database lookup or order status, instead of making things up.' },
+  },
+  {
+    id: 'memoria', tags: ['PostgreSQL', 'Redis', 'n8n'], repo: 'Prospeccao-Tecnologica', demo: 'https://youtu.be/1BL4K4YV3S8',
+    pt: { titulo: 'Memória longa', sub: 'PostgreSQL e Redis', texto: 'O histórico de cada cliente fica no PostgreSQL, com o telefone como chave, e o Redis cuida de fila e cache. Fiz isso no projeto de Prospecção Tecnológica: o agente reconhece o cliente, lembra o último pedido e oferece repetir.' },
+    en: { titulo: 'Long-term memory', sub: 'PostgreSQL and Redis', texto: 'Each customer’s history lives in PostgreSQL, keyed by phone number, while Redis handles queue and cache. I built this in the Prospecção Tecnológica project: the agent recognizes the customer, remembers their last order and offers to repeat it.' },
+  },
+];
 
 // Trajetória (currículo), da mais recente para a mais antiga
 export const TRAJETORIA = [

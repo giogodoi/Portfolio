@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
 import { readFileSync } from 'node:fs';
-import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS } from '../js/conteudo.js';
+import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS, FLUXO } from '../js/conteudo.js';
 import { postsValidos, ordenarPosts } from '../js/secoes.js';
 
 test('formas: todas com n pontos, valores finitos e dentro da cena', () => {
@@ -38,6 +38,11 @@ test('conteúdo: PT e EN com as mesmas chaves e mesmo número de práticas', () 
   for (const t of TRAJETORIA) {
     assert.ok(t.quando.pt && t.quando.en, t.org);
     assert.equal(t.pt.itens.length, t.en.itens.length, `${t.org}: itens PT/EN`);
+  }
+  assert.equal(FLUXO.length, 5, 'o fluxo tem 5 blocos (textos dizem "de 5")');
+  for (const n of FLUXO) {
+    assert.deepEqual(Object.keys(n.pt).sort(), Object.keys(n.en).sort(), n.id);
+    if (n.repo) assert.ok(PROJETOS[n.repo], `${n.id}: repo ${n.repo} não está em PROJETOS`);
   }
   for (const c of CERTIFICACOES) {
     if (!Array.isArray(c.itens)) assert.equal(c.itens.pt.length, c.itens.en.length, c.emissor);

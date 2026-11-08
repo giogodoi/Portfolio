@@ -76,6 +76,68 @@ section,.etapa{scroll-margin-top:88px}
 .habilidades dd{font-size:15px;line-height:1.7}
 @media(max-width:900px){.sobre{grid-template-columns:1fr}.habilidades{grid-template-columns:1fr}.fatos div{grid-template-columns:96px 1fr}}
 
+/* ============ agentes (fluxo n8n simulado) ============ */
+.agentes h2{max-width:14em;margin-bottom:20px;text-wrap:balance}
+.fluxo-tela{position:relative;margin-top:48px;padding:72px clamp(16px,3vw,40px) 64px;border:1px solid var(--rule);border-radius:20px;
+  background:radial-gradient(circle,#23263D 1px,transparent 1.3px) 0 0/22px 22px,var(--void)}
+.fluxo-barra{position:absolute;top:16px;left:20px;right:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--dim);z-index:2}
+.fluxo-barra p{display:flex;align-items:center;gap:8px}
+.fluxo-barra i{width:8px;height:8px;border-radius:50%;background:#34385A;transition:background .3s,box-shadow .3s}
+.fluxo-tela.completo .fluxo-barra i{background:var(--signal);box-shadow:0 0 10px var(--signal)}
+.fluxo-tela.completo .fluxo-barra p{color:var(--haze)}
+.fluxo-barra span,.fluxo-reiniciar{white-space:nowrap}
+.fluxo-reiniciar{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--haze);padding:6px 12px;border-radius:999px;border:1px solid var(--rule)}
+.fluxo-reiniciar:hover{border-color:var(--dim)}
+.fluxo-reiniciar:focus-visible{outline:2px solid var(--haze);outline-offset:2px}
+.fluxo-fios{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.fio-base{fill:none;stroke:#2A2D45;stroke-width:2}
+.fio{fill:none;stroke:var(--signal);stroke-width:2.5;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 4px rgb(60 72 228 / .8));transition:stroke-dashoffset .7s ease}
+.fio.aceso{stroke-dashoffset:0}
+.fluxo-nos{position:relative;z-index:1;list-style:none;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.fluxo-nos li:nth-child(even){translate:0 44px} /* desalinhado como num canvas, não uma grade rígida */
+.no{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.no-caixa{position:relative;width:84px;height:84px;margin-bottom:8px;border-radius:20px;display:grid;place-items:center;background:var(--panel);border:1.5px solid #2A2D45;
+  color:var(--dim);transition:border-color .3s,background .3s,color .3s,box-shadow .3s}
+.no-caixa>svg{width:34px;height:34px}
+.no-caixa::before,.no-caixa::after{content:"";position:absolute;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--void);border:1.5px solid #2A2D45;transition:border-color .3s,background .3s}
+.no-caixa::before{left:-5.5px}.no-caixa::after{right:-5.5px}
+.no-ok{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:var(--signal);display:grid;place-items:center;scale:0;transition:scale .3s cubic-bezier(.3,1.6,.5,1)}
+.no-ok svg{width:14px;height:14px}
+.no-titulo{font-size:15px;font-weight:600;line-height:1.3}
+.no-sub{font-size:12.5px;color:var(--dim)}
+.no:hover .no-caixa{border-color:#3F4470}
+.no:focus-visible .no-caixa{outline:2px solid var(--haze);outline-offset:4px}
+.no.ativo .no-caixa{border-color:var(--signal);background:rgb(60 72 228 / .16);color:var(--haze);box-shadow:0 0 0 6px rgb(60 72 228 / .1),0 0 36px rgb(60 72 228 / .35)}
+.no.ativo .no-caixa::before,.no.ativo .no-caixa::after{border-color:var(--signal);background:var(--signal)}
+.no.ativo .no-ok{scale:1}
+.no.atual .no-titulo{color:var(--haze)}
+.fluxo-detalhe{margin-top:16px;min-height:168px;padding:22px 24px;border:1px solid var(--rule);border-radius:16px;background:var(--panel)}
+.det-dica{color:var(--dim);font-size:15px}
+.det-num{font-size:13px;color:var(--dim);margin-bottom:4px}
+.fluxo-detalhe h3{margin-bottom:8px}
+.det-txt{max-width:70ch;color:color-mix(in srgb,var(--ink) 82%,transparent);font-size:15px}
+.det-tags{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.det-tags li{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid rgb(60 72 228 / .5);color:var(--haze)}
+.det-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px}
+.det-links a{font-size:14px;font-weight:600;color:var(--haze);text-decoration:none;border-bottom:1px solid rgb(60 72 228 / .6)}
+.det-links a:hover{color:var(--ink)}
+@media(max-width:900px){
+  .fluxo-tela{padding:68px 20px 32px}
+  .fluxo-barra{left:16px;right:12px;font-size:12px}
+  .fluxo-reiniciar{font-size:12px;padding:5px 10px}
+  .fluxo-nos{grid-template-columns:1fr;gap:36px}
+  .fluxo-nos li:nth-child(even){translate:none}
+  .no{flex-direction:row;text-align:left;gap:16px;align-items:center}
+  .no-caixa{width:64px;height:64px;margin:0;flex:none;border-radius:16px}
+  .no-caixa>svg{width:28px;height:28px}
+  .no-caixa::before,.no-caixa::after{display:none}
+  .no-titulo{display:block}
+  .no{display:grid;grid-template-columns:64px 1fr;grid-template-rows:auto auto;column-gap:16px;row-gap:2px}
+  .no-caixa{grid-row:1/3}
+  .no-titulo{align-self:end}.no-sub{align-self:start}
+}
+@media(prefers-reduced-motion:reduce){.fio,.no-caixa,.no-ok{transition:none}}
+
 /* ============ trajetória ============ */
 .trajetoria h2{margin-bottom:20px}
 /* linha única: trilha cinza + preenchimento azul controlado por --preench (0–1) via JS */
