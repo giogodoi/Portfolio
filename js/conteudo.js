@@ -37,7 +37,7 @@ export const TEXTOS = {
     'metodo.etapas': 'Etapas',
     'nav.agentes': 'Agentes',
     'fluxo.titulo': 'Agentes de IA, do primeiro contato à <i>memória.</i>',
-    'fluxo.lead': 'Monto fluxos no n8n que ligam canais de conversa, modelos de IA e bancos de dados, com a LGPD dentro do fluxo e não remendada no fim.',
+    'fluxo.lead': 'Como monto um agente de atendimento no n8n. Cada bloco mostra o que o projeto Prospecção Tecnológica já faz e o que eu somo em produção.',
     'fluxo.aria': 'Fluxo de agente de IA no n8n',
     'fluxo.dica': 'Passe o mouse ou toque nos blocos para executar o fluxo.',
     'fluxo.reiniciar': 'Executar de novo',
@@ -45,7 +45,7 @@ export const TEXTOS = {
     'trajetoria.lead': 'Pesquisa, empresa júnior e agência de inovação: cada etapa foi aprendida em algum desses lugares.',
     'trajetoria.certs': 'Certificações',
     'projetos.titulo': 'Todo o código está <i>aberto.</i>',
-    'projetos.lead': 'Repositórios públicos no GitHub, do mais recente ao mais antigo.',
+    'projetos.lead': 'Repositórios públicos selecionados no GitHub.',
     'posts.titulo': 'Engenharia, dados e IA. Temas diferentes, uma coisa em comum: <i>método.</i>',
     'posts.lead': 'Escrevo no LinkedIn sobre o que aprendo construindo.',
     'posts.cta': 'Faça parte da minha rede',
@@ -70,12 +70,12 @@ export const TEXTOS = {
     'hero.cta1': 'See the method',
     'hero.cta2': 'See my GitHub',
     'sobre.titulo': 'Engineering and data, built for its <i>users.</i>',
-    'sobre.p1': 'I study Computer Science at UFLA (2024–2028), work as a Software Engineer at Agência Zetta and research at NIAD, the university’s AI and data science lab. I work where automation, artificial intelligence and software engineering meet: RAG, agents and data pipelines that take manual work out of the way.',
+    'sobre.p1': 'I study Computer Science at UFLA (Federal University of Lavras, Brazil, 2024–2028), work as a Software Engineer at Agência Zetta and research at NIAD, the university’s AI and data science lab. I work where automation, artificial intelligence and software engineering meet: RAG, agents and data pipelines that take manual work out of the way.',
     'sobre.p2': 'I use Git with a branching workflow, Scrum and Kanban, and I prefer clean code over clever code.',
     'sobre.f1n': '2.5',
     'sobre.f1': 'weeks to ship an MVP with RAG and agents. The plan was 2 months.',
     'sobre.f2': 'Anthropic certifications: Claude, Claude Code, MCP and AI Fluency.',
-    'sobre.f3': 'Software Development Highlight award from Agência Zetta.',
+    'sobre.f3': 'Outstanding Software Development Award from Agência Zetta.',
     'sobre.h1': 'Languages and tools',
     'sobre.h2': 'Data and AI',
     'sobre.h3': 'Architecture and process',
@@ -84,15 +84,15 @@ export const TEXTOS = {
     'metodo.etapas': 'Stages',
     'nav.agentes': 'Agents',
     'fluxo.titulo': 'AI agents, from first contact to <i>memory.</i>',
-    'fluxo.lead': 'I build n8n workflows that connect chat channels, AI models and databases, with data protection built into the flow instead of patched on at the end.',
+    'fluxo.lead': 'How I build a support agent in n8n. Each node shows what my Tech Prospecting project already does and what I add in production.',
     'fluxo.aria': 'AI agent workflow in n8n',
-    'fluxo.dica': 'Hover or tap the blocks to run the workflow.',
+    'fluxo.dica': 'Hover or tap the nodes to run the workflow.',
     'fluxo.reiniciar': 'Run again',
     'trajetoria.titulo': 'The roots of the <i>method.</i>',
     'trajetoria.lead': 'Research, a student-run company and an innovation agency: each stage was learned in one of these places.',
     'trajetoria.certs': 'Certifications',
     'projetos.titulo': 'All the code is <i>open.</i>',
-    'projetos.lead': 'Public repositories on GitHub, newest first.',
+    'projetos.lead': 'Selected public repositories on GitHub.',
     'posts.titulo': 'Engineering, data and AI. Different topics, one thing in common: <i>method.</i>',
     'posts.lead': 'I write on LinkedIn about what I learn while building.',
     'posts.cta': 'Join my network',
@@ -160,32 +160,35 @@ export const STACKS = [
   ],
 ];
 
-// Fluxo de agente no n8n: 5 blocos que acendem ao passar o mouse, tocar ou focar
+// Fluxo de agente no n8n: 5 blocos que acendem ao passar o mouse, tocar ou focar.
+// Honestidade: cada bloco diz o que o projeto Prospecção Tecnológica já faz e o que somo em produção.
+export const FLUXO_REPO = 'Prospeccao-Tecnologica';
+export const FLUXO_DEMO = 'https://youtu.be/1BL4K4YV3S8';
 export const FLUXO = [
   {
-    id: 'canal', tags: ['Webhook', 'Evolution API', 'Chat'],
-    pt: { titulo: 'WhatsApp ou chat', sub: 'Webhook de entrada', texto: 'As mensagens chegam por webhook, vindas do WhatsApp pela Evolution API ou de um chat no site. O fluxo identifica o canal e normaliza tudo para um formato único.' },
-    en: { titulo: 'WhatsApp or chat', sub: 'Incoming webhook', texto: 'Messages arrive by webhook, from WhatsApp through the Evolution API or from a website chat. The flow identifies the channel and normalizes everything into a single format.' },
+    id: 'canal', tags: { pt: ['Webhook', 'Evolution API', 'Chat'], en: ['Webhook', 'Evolution API', 'Chat'] },
+    pt: { titulo: 'WhatsApp ou chat', sub: 'Webhook de entrada', texto: 'No projeto, a Evolution API recebe as mensagens do WhatsApp e as entrega ao n8n por webhook. O fluxo extrai telefone, mensagem e contexto da conversa. Um chat no site entra pelo mesmo webhook.' },
+    en: { titulo: 'WhatsApp or chat', sub: 'Incoming webhook', texto: 'In the project, the Evolution API receives WhatsApp messages and hands them to n8n through a webhook. The flow extracts phone number, message and conversation context. A website chat can use the same webhook.' },
   },
   {
-    id: 'lgpd', tags: ['LGPD', 'Consentimento', 'PII'],
-    pt: { titulo: 'Dados do cliente', sub: 'Segurança e LGPD', texto: 'Coleto só o necessário para atender, peço consentimento, mascaro dados pessoais antes de qualquer chamada externa e registro a finalidade de cada dado. Credenciais ficam em variáveis do servidor, nunca dentro do fluxo.' },
-    en: { titulo: 'Customer data', sub: 'Security and LGPD', texto: 'I collect only what is needed, ask for consent, mask personal data before any external call and record the purpose of each field. Credentials live in server variables, never inside the workflow.' },
+    id: 'lgpd', tags: { pt: ['LGPD', 'Dados mínimos', 'Consentimento'], en: ['LGPD', 'Data minimization', 'Consent'] },
+    pt: { titulo: 'Dados do cliente', sub: 'Segurança e LGPD', texto: 'A memória do projeto guarda só nome, telefone e último pedido: o mínimo para atender. Em produção, somo consentimento explícito, mascaramento de dados pessoais antes de chamadas externas e credenciais fora do fluxo.' },
+    en: { titulo: 'Customer data', sub: 'Security and LGPD', texto: 'The project’s memory keeps only name, phone number and last order: the minimum needed to serve the customer. In production I add explicit consent, masking of personal data before external calls, and credentials kept out of the workflow, following the LGPD (Brazil’s GDPR).' },
   },
   {
-    id: 'modelo', tags: ['Fine-tuning', 'LLM', 'JSON'],
-    pt: { titulo: 'Modelo de IA', sub: 'Fine-tuning no domínio', texto: 'Um modelo ajustado com exemplos do domínio responde no tom e no formato certos. A saída sai estruturada em JSON para os próximos blocos usarem sem adivinhar.' },
-    en: { titulo: 'AI model', sub: 'Domain fine-tuning', texto: 'A model fine-tuned on domain examples answers in the right tone and format. The output is structured JSON so the next nodes can use it without guessing.' },
+    id: 'modelo', tags: { pt: ['LLM', 'Groq', 'Fine-tuning'], en: ['LLM', 'Groq', 'Fine-tuning'] },
+    pt: { titulo: 'Modelo de IA', sub: 'Regras e fine-tuning', texto: 'No projeto, o modelo de linguagem (via Groq) responde a partir das regras do atendimento e da memória do cliente. Quando prompt e contexto não bastam, o próximo passo é o fine-tuning com exemplos do domínio, com saída estruturada em JSON.' },
+    en: { titulo: 'AI model', sub: 'Rules and fine-tuning', texto: 'In the project, the language model (through Groq) answers from the support rules and the customer’s memory. When prompt and context are not enough, the next step is fine-tuning on domain examples, with structured JSON output.' },
   },
   {
-    id: 'guardrails', tags: ['Guardrails', 'Tools', 'Agente'],
-    pt: { titulo: 'Guardrails e tools', sub: 'Validação e ferramentas', texto: 'Antes de responder, a saída passa por checagem de escopo e formato. Quando precisa de um dado real, o agente chama tools, como consulta ao banco ou status do pedido, em vez de inventar.' },
-    en: { titulo: 'Guardrails and tools', sub: 'Validation and tools', texto: 'Before replying, the output goes through scope and format checks. When it needs real data, the agent calls tools, like a database lookup or order status, instead of making things up.' },
+    id: 'guardrails', tags: { pt: ['Validação', 'Guardrails', 'Tools'], en: ['Validation', 'Guardrails', 'Tools'] },
+    pt: { titulo: 'Guardrails e tools', sub: 'Escopo e ferramentas', texto: 'No projeto, o fluxo valida a mensagem e confirma o pedido de forma estruturada antes de gravar. Em agentes maiores, somo checagem de escopo e formato da resposta e tools para buscar dados reais, como status do pedido, em vez de deixar o modelo inventar.' },
+    en: { titulo: 'Guardrails and tools', sub: 'Scope checks and tool calls', texto: 'In the project, the flow validates the message and confirms the order in a structured way before saving it. In larger agents I add scope and format checks on the reply, and tools that fetch real data, like order status, instead of letting the model make things up.' },
   },
   {
-    id: 'memoria', tags: ['PostgreSQL', 'Redis', 'n8n'], repo: 'Prospeccao-Tecnologica', demo: 'https://youtu.be/1BL4K4YV3S8',
-    pt: { titulo: 'Memória longa', sub: 'PostgreSQL e Redis', texto: 'O histórico de cada cliente fica no PostgreSQL, com o telefone como chave, e o Redis cuida de fila e cache. Fiz isso no projeto de Prospecção Tecnológica: o agente reconhece o cliente, lembra o último pedido e oferece repetir.' },
-    en: { titulo: 'Long-term memory', sub: 'PostgreSQL and Redis', texto: 'Each customer’s history lives in PostgreSQL, keyed by phone number, while Redis handles queue and cache. I built this in the Prospecção Tecnológica project: the agent recognizes the customer, remembers their last order and offers to repeat it.' },
+    id: 'memoria', tags: { pt: ['PostgreSQL', 'Redis', 'n8n'], en: ['PostgreSQL', 'Redis', 'n8n'] },
+    pt: { titulo: 'Memória longa', sub: 'PostgreSQL e Redis', texto: 'A tabela de memória usa o telefone como chave e guarda nome, último pedido e data. O Redis cuida da fila do n8n e do cache da Evolution API. Resultado: o agente reconhece o cliente, lembra o último pedido e oferece repetir.' },
+    en: { titulo: 'Long-term memory', sub: 'PostgreSQL and Redis', texto: 'The memory table is keyed by phone number and stores name, last order and its date. Redis handles the n8n queue and the Evolution API cache. Result: the agent recognizes the customer, remembers their last order and offers to repeat it.' },
   },
 ];
 
@@ -194,7 +197,7 @@ export const TRAJETORIA = [
   {
     org: 'Agência Zetta', quando: { pt: 'fev 2026 – atual', en: 'Feb 2026 – present' },
     pt: { cargo: 'Software Engineer', itens: ['Projetos com foco em sustentabilidade, eficiência de serviços e tecnologia de ponta na agência de inovação, geotecnologia e sistemas inteligentes da UFLA.', 'Destaque em Desenvolvimento de Software (set 2026).'] },
-    en: { cargo: 'Software Engineer', itens: ['Projects focused on sustainability, service efficiency and cutting-edge technology at UFLA’s innovation, geotechnology and intelligent systems agency.', 'Software Development Highlight award (Sep 2026).'] },
+    en: { cargo: 'Software Engineer', itens: ['Projects focused on sustainability, service efficiency and cutting-edge technology at UFLA’s innovation, geotechnology and intelligent systems agency.', 'Outstanding Software Development Award (Sep 2026).'] },
   },
   {
     org: 'Agência Zetta', quando: { pt: 'fev – jun 2026', en: 'Feb – Jun 2026' },
@@ -208,13 +211,13 @@ export const TRAJETORIA = [
   },
   {
     org: 'NIAD (UFLA)', quando: { pt: 'jun – set 2025', en: 'Jun – Sep 2025' },
-    pt: { cargo: 'Trainee', itens: ['IA de jogo da velha com MinMax e medição do ganho da poda alfa-beta, com métricas e gráficos.'] },
-    en: { cargo: 'Trainee', itens: ['Tic-tac-toe AI with MinMax, measuring the gain from alpha-beta pruning with metrics and charts.'] },
+    pt: { cargo: 'Trainee', itens: ['IA de jogo da velha com Minimax e medição do ganho da poda alfa-beta, com métricas e gráficos.'] },
+    en: { cargo: 'Trainee', itens: ['Tic-tac-toe AI with Minimax, measuring the gain from alpha-beta pruning with metrics and charts.'] },
   },
   {
     org: 'Comp Júnior', quando: { pt: 'mar – ago 2025', en: 'Mar – Aug 2025' },
     pt: { cargo: 'Diretor Comercial, Designer e Trainee', itens: ['Planejamento estratégico de marketing e vendas, com processos de integração da equipe no Miro e no Pipefy.', 'Protótipos no Figma, da baixa à alta fidelidade, a partir das ideias dos clientes.'] },
-    en: { cargo: 'Sales Director, Designer and Trainee', itens: ['Strategic planning for marketing and sales, with team onboarding processes in Miro and Pipefy.', 'Figma prototypes, from low to high fidelity, built from clients’ ideas.'] },
+    en: { cargo: 'Sales Director, Designer and Trainee', itens: ['At UFLA’s student-run tech company: strategic planning for marketing and sales, with team onboarding processes in Miro and Pipefy.', 'Figma prototypes, from low to high fidelity, built from clients’ ideas.'] },
   },
   {
     org: 'Unimed Guaxupé', quando: { pt: 'fev – set 2024', en: 'Feb – Sep 2024' },
@@ -232,7 +235,7 @@ export const FORMACAO = {
 export const CERTIFICACOES = [
   { emissor: 'Anthropic', destaque: true, itens: ['Claude Code 101', 'Claude 101', 'Introduction to Model Context Protocol', 'AI Fluency: Framework & Foundations'], quando: { pt: 'jun 2026', en: 'Jun 2026' } },
   { emissor: 'Microsoft', destaque: true, itens: { pt: ['Introdução a IA no Azure'], en: ['Introduction to AI on Azure'] }, quando: { pt: 'jul 2026', en: 'Jul 2026' } },
-  { emissor: 'Even3', itens: { pt: ['Agentes de IA na Pesquisa Científica e Acadêmica'], en: ['AI Agents in Scientific and Academic Research'] }, quando: { pt: 'ago 2026', en: 'Aug 2026' } },
+  { emissor: 'Even3', itens: { pt: ['Agentes de IA na Pesquisa Científica e Acadêmica (participação)'], en: ['AI Agents in Scientific and Academic Research (participation)'] }, quando: { pt: 'ago 2026', en: 'Aug 2026' } },
   { emissor: 'Udemy', itens: { pt: ['Automação com IA usando n8n'], en: ['AI Automation with n8n'] }, quando: { pt: 'mai 2026', en: 'May 2026' } },
   { emissor: 'RL&Associados', itens: ['Six Sigma White Belt'], quando: { pt: 'jan 2025', en: 'Jan 2025' } },
   { emissor: 'IBM SkillsBuild', itens: ['Working in a Digital World: Professional Skills'], quando: { pt: 'ago 2024', en: 'Aug 2024' } },
@@ -244,12 +247,12 @@ export const PROJETOS = {
   'Ariranha': {
     nome: 'Ariranha', ano: 2026, stack: ['Spring Boot', 'React', 'PostGIS', 'Python', 'Docker'],
     pt: 'Monitoramento de focos de incêndio com dados do INPE e predição de ocorrência e severidade.',
-    en: 'Wildfire monitoring with INPE data and prediction of occurrence and severity.',
+    en: 'Wildfire monitoring with data from INPE (Brazil’s space research institute) and prediction of occurrence and severity.',
   },
   'AVE---Algoritmo-de-Varredura-Emergencial': {
     nome: 'AVE', ano: 2026, stack: ['Python', 'XGBoost', 'DBSCAN', 'PostGIS', 'Flask'],
-    pt: 'Ciência de dados para prever focos e severidade de queimadas no Brasil.',
-    en: 'Data science to predict wildfire hotspots and severity in Brazil.',
+    pt: 'Estudo de ciência de dados do Ariranha: previsão de focos e severidade de queimadas no Brasil.',
+    en: 'Ariranha’s data science study: predicting wildfire hotspots and severity in Brazil.',
   },
   'Zotion': {
     nome: 'Zotion', ano: 2026, stack: ['Java', 'JPA', 'TypeScript', 'Gemini', 'Docker'],
@@ -259,15 +262,15 @@ export const PROJETOS = {
   'DeuBranco': {
     nome: 'Deu Branco', ano: 2026, stack: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker'],
     pt: 'Plataforma de estudos competitivos para o ENEM, feita em equipe.',
-    en: 'Competitive study platform for the ENEM exam, built as a team.',
+    en: 'Competitive study platform for ENEM, Brazil’s national university entrance exam, built as a team.',
   },
   'Prospeccao-Tecnologica': {
-    nome: 'Agente com memória longa', ano: 2026, stack: ['n8n', 'PostgreSQL', 'Redis', 'Evolution API'],
-    pt: 'Agente de atendimento no WhatsApp que lembra o último pedido de cada cliente.',
-    en: 'WhatsApp support agent that remembers each customer’s last order.',
+    nome: { pt: 'Prospecção Tecnológica', en: 'Tech Prospecting' }, ano: 2026, stack: ['n8n', 'PostgreSQL', 'Redis', 'Evolution API'],
+    pt: 'Agente de atendimento no WhatsApp com memória longa: lembra o último pedido de cada cliente.',
+    en: 'WhatsApp support agent with long-term memory that remembers each customer’s last order.',
   },
   'CafeX-AppDesign': {
-    nome: 'CafeX', ano: 2026, stack: ['Figma', 'Design system', 'IA'],
+    nome: 'CafeX', ano: 2026, stack: ['Figma', 'Design system', 'GenAI'],
     pt: 'Protótipo de alta fidelidade para o Hackathon Avança Café 2026 e guia de design consciente com IA.',
     en: 'High-fidelity prototype for the Avança Café 2026 Hackathon and a guide to conscious design with AI.',
   },
@@ -282,12 +285,12 @@ export const PROJETOS = {
     en: 'Web system for users and studios, with specialization modeled in the database.',
   },
   'Pesquisa-Operacional': {
-    nome: 'Pesquisa Operacional', ano: 2026, stack: ['Python', 'Jupyter'],
+    nome: { pt: 'Pesquisa Operacional', en: 'Operations Research' }, ano: 2026, stack: ['Python', 'Jupyter'],
     pt: 'Programação inteira no trabalho prático de Programação Matemática.',
     en: 'Integer programming for the Mathematical Programming course project.',
   },
   'Compiladores': {
-    nome: 'Compiladores', ano: 2026, stack: ['C', 'Lex'],
+    nome: { pt: 'Compiladores', en: 'Compilers' }, ano: 2026, stack: ['C', 'Lex'],
     pt: 'Estudo completo da disciplina de Compiladores.',
     en: 'A complete study of the Compilers course.',
   },
@@ -334,7 +337,7 @@ export const ETAPAS = [
     evidencias: [
       { tipo: 'experiencia', org: 'Agência Zetta', pt: 'Protocolos alternativos de coleta para zonas de incêndio sem sinal de satélite, e análise de nuvem vs. infraestrutura local.', en: 'Alternative collection protocols for wildfire zones with no satellite signal, plus a cloud vs. on-premise analysis.' },
       { tipo: 'projeto', repo: 'Ariranha', pt: 'Dados do INPE via WFS em tempo real, modelo relacional com JPA e geometrias no PostGIS.', en: 'Real-time INPE data via WFS, a relational model with JPA and geometries in PostGIS.' },
-      { tipo: 'projeto', repo: 'Prospeccao-Tecnologica', pt: 'Memória longa por cliente para um agente de atendimento: PostgreSQL guarda o histórico, Redis cuida de fila e cache.', en: 'Long-term memory per customer for a support agent: PostgreSQL keeps the history, Redis handles queue and cache.' },
+      { tipo: 'projeto', repo: 'Prospeccao-Tecnologica', pt: 'Memória longa por cliente para um agente de atendimento: PostgreSQL guarda nome, telefone e último pedido; Redis cuida de fila e cache.', en: 'Long-term memory per customer for a support agent: PostgreSQL keeps name, phone number and last order; Redis handles queue and cache.' },
     ],
   },
   {
@@ -362,7 +365,7 @@ export const ETAPAS = [
       praticas: ['Começo pelo menor caminho que funciona de ponta a ponta.', 'Uso IA (RAG, agentes) onde ela tira trabalho manual de verdade.', 'Commits pequenos, uma branch por funcionalidade e código limpo.'],
     },
     en: {
-      titulo: 'Hands on code',
+      titulo: 'Hands-on coding',
       resumo: 'With context and data in place, code moves fast. I ship in short, versioned cycles that are easy to review.',
       praticas: ['I start with the smallest path that works end to end.', 'I use AI (RAG, agents) where it truly removes manual work.', 'Small commits, one branch per feature and clean code.'],
     },
@@ -385,8 +388,8 @@ export const ETAPAS = [
       praticas: ['I test every route and keep the test collection next to the code.', 'I measure the gain of each optimization instead of assuming it.', 'I package with Docker and document how to run it.'],
     },
     evidencias: [
-      { tipo: 'experiencia', org: 'Agência Zetta', pt: 'Supervisão do ciclo de desenvolvimento até uma IA pronta para produção. Destaque em Desenvolvimento de Software (2026).', en: 'Oversaw the development lifecycle up to production-ready AI. Software Development Highlight award (2026).' },
-      { tipo: 'experiencia', org: 'NIAD (UFLA)', pt: 'IA de jogo da velha com MinMax: o ganho da poda alfa-beta foi medido com métricas e gráficos.', en: 'Tic-tac-toe AI with MinMax: the gain from alpha-beta pruning was measured with metrics and charts.' },
+      { tipo: 'experiencia', org: 'Agência Zetta', pt: 'Supervisão do ciclo de desenvolvimento na fase inicial do projeto, unindo a pesquisa científica a uma IA pronta para produção.', en: 'Oversaw the development lifecycle in the project’s initial phase, bridging scientific research and production-ready AI.' },
+      { tipo: 'experiencia', org: 'NIAD (UFLA)', pt: 'IA de jogo da velha com Minimax: o ganho da poda alfa-beta foi medido com métricas e gráficos.', en: 'Tic-tac-toe AI with Minimax: the gain from alpha-beta pruning was measured with metrics and charts.' },
       { tipo: 'projeto', repo: 'Zotion', pt: 'Testes de todas as rotas da API gravados em vídeo, com coleção do Postman pronta para importar.', en: 'Tests of every API route recorded on video, with a ready-to-import Postman collection.' },
       { tipo: 'projeto', repo: 'Ariranha', pt: 'Três módulos orquestrados com Docker Compose: backend, frontend e banco com PostGIS.', en: 'Three modules orchestrated with Docker Compose: backend, frontend and a PostGIS database.' },
     ],

@@ -1,5 +1,5 @@
 import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS, ICONES_CDN } from './conteudo.js';
-import { esc } from './metodo.js';
+import { esc, nomeProj } from './metodo.js';
 
 const local = (v, lang) => (Array.isArray(v) || typeof v === 'string' ? v : v[lang]);
 const SETA = '<svg class="seta" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -86,7 +86,7 @@ export function renderProjetos(lang) {
   const lista = Object.entries(PROJETOS).sort((a, b) => b[1].ano - a[1].ano); // sort estável: mantém a ordem de destaque
   document.getElementById('lista-projetos').innerHTML = lista.map(([repo, p]) => `
     <li><a class="proj" href="${GITHUB}/${repo}" target="_blank" rel="noopener">
-      <span class="proj-nome">${esc(p.nome)}</span>
+      <span class="proj-nome">${esc(nomeProj(p, lang))}</span>
       <span class="proj-desc">${esc(p[lang])}</span>
       <span class="proj-stack">${p.stack.map(esc).join(', ')}</span>
       <span class="proj-ano">${p.ano}</span>${SETA}

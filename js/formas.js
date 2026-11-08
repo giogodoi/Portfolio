@@ -56,7 +56,7 @@ function constelacao(n, r) {
 
 // 2 · estruturar dados: treliça (schema) com nós em destaque
 function trelica(n) {
-  const f = nova(n), g = 5, L = 2.5, s = L / (g - 1), arestas = [];
+  const f = nova(n), g = 5, L = 2.2, s = L / (g - 1), arestas = [];
   const no = (a, b, c) => [a * s - L / 2, b * s - L / 2, c * s - L / 2];
   for (let a = 0; a < g; a++) for (let b = 0; b < g; b++) for (let c = 0; c < g - 1; c++) {
     arestas.push([no(c, a, b), no(c + 1, a, b)], [no(a, c, b), no(a, c + 1, b)], [no(a, b, c), no(a, b, c + 1)]);
