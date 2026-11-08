@@ -49,7 +49,7 @@ export function iniciarScrollMetodo({ particulas, canvas, reduz, lenis }) {
       let ativa = -1;
       arts.forEach((a, i) => { if (a.getBoundingClientRect().top < vh * 0.6) ativa = i; });
       p = ativa + 1; // 0 = esfera do hero
-      op = scrollY < vh * 0.5 || (r.top < vh * 0.6 && r.bottom > vh * 0.4) ? 0.32 : 0.1;
+      op = scrollY < vh * 0.5 || (r.top < vh * 0.6 && r.bottom > vh * 0.4) ? 0.2 : 0.1;
     } else {
       const prog = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
       const s = prog * ETAPAS.length, ativa = Math.min(ETAPAS.length - 1, Math.floor(s)), u = s - ativa;
