@@ -359,3 +359,13 @@ a.ev{transition:border-color .25s,background .25s}
   .stack-trilha{flex-wrap:nowrap;width:max-content}
   .stack-trilha li{scroll-snap-align:start}
 }
+
+/* ============ grifo de marca-texto azul ============ */
+/* faixa azul na metade de baixo da palavra; cresce da esquerda quando o título entra na tela */
+h2 i.grifo{color:#fff;padding:0 .14em;margin:0 -.04em;border-radius:.12em .3em .16em .26em;
+  background-image:linear-gradient(97deg,rgb(60 72 228 / 0),rgb(60 72 228 / .9) 4%,rgb(72 108 240 / .82) 94%,rgb(72 108 240 / 0));
+  background-repeat:no-repeat;background-position:0 88%;background-size:0% 44%;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  transition:background-size 1s cubic-bezier(.65,0,.25,1) .15s}
+h2[data-grifo].grifado i.grifo{background-size:100% 44%}
+@media(prefers-reduced-motion:reduce){h2 i.grifo{transition:none;background-size:100% 44%}}
