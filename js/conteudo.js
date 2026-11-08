@@ -140,9 +140,8 @@ export const UI = {
   },
 };
 
-// Stacks do carrossel (currículo + perfil do GitHub). si = ícone do Simple Icons; glifo = desenho próprio
+// Stacks do carrossel (currículo + perfil do GitHub). si = ícone do Simple Icons (path em js/icones.js); glifo = desenho próprio
 // para conceitos sem logo ou marcas que o Simple Icons não distribui (Microsoft)
-export const ICONES_CDN = 'https://cdn.jsdelivr.net/npm/simple-icons@16.33.0/icons/';
 export const STACKS = [
   [
     { nome: 'Python', si: 'python' }, { nome: 'Java', si: 'openjdk' }, { nome: 'C++', si: 'cplusplus' },
@@ -224,7 +223,7 @@ export const TRAJETORIA = [
     en: { cargo: 'Sales Director, Designer and Trainee', itens: ['At UFLA’s student-run tech company: strategic planning for marketing and sales, with team onboarding processes in Miro and Pipefy.', 'Figma prototypes, from low to high fidelity, built from clients’ ideas.'] },
   },
   {
-    org: 'Unimed Guaxupé', quando: { pt: 'fev – set 2024', en: 'Feb – Sep 2024' },
+    org: 'Unimed Guaxupé', quando: { pt: 'fev – set 2024', en: 'Feb – Sep 2024' }, antesDaGraduacao: true,
     pt: { cargo: 'Assistente Administrativo', itens: ['Rotinas operacionais e resolução de problemas numa cooperativa de trabalho médico.'] },
     en: { cargo: 'Administrative Assistant', itens: ['Operational routines and problem solving at a medical cooperative.'] },
   },

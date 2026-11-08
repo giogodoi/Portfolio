@@ -1,22 +1,25 @@
-import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS, ICONES_CDN } from './conteudo.js';
+import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS } from './conteudo.js';
+import { ICONES } from './icones.js';
 import { esc, nomeProj } from './metodo.js';
 
 const local = (v, lang) => (Array.isArray(v) || typeof v === 'string' ? v : v[lang]);
 const SETA = '<svg class="seta" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 export function renderTrajetoria(lang) {
-  document.getElementById('linha-tempo').innerHTML = TRAJETORIA.map((t) => `
+  const marco = (t) => `
     <li class="marco">
       <p class="marco-quando">${esc(t.quando[lang])}</p>
       <div class="marco-txt">
         <h3>${esc(t[lang].cargo)} <span>${esc(t.org)}</span></h3>
         <ul>${t[lang].itens.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
       </div>
-    </li>`).join('') + `
+    </li>`;
+  // ordem por início: experiências durante a graduação, a graduação, e o que veio antes dela
+  document.getElementById('linha-tempo').innerHTML = TRAJETORIA.filter((t) => !t.antesDaGraduacao).map(marco).join('') + `
     <li class="marco marco-base">
       <p class="marco-quando">${esc(FORMACAO.quando[lang])}</p>
       <div class="marco-txt"><h3>${esc(FORMACAO[lang])} <span>${esc(FORMACAO.org)}</span></h3></div>
-    </li>`;
+    </li>` + TRAJETORIA.filter((t) => t.antesDaGraduacao).map(marco).join('');
 
   document.getElementById('certificacoes').innerHTML = CERTIFICACOES.map((c) => `
     <li class="${c.destaque ? 'cert-destaque' : ''}">
@@ -71,7 +74,9 @@ export function renderStacks(lang) {
   document.querySelectorAll('.stack-trilha').forEach((ul) => {
     const blocos = (oculto) => STACKS[+ul.dataset.grupo].map((s) => {
       const nome = typeof s.nome === 'string' ? s.nome : s.nome[lang];
-      const ic = s.si ? `<span class="stk-ic" style="--ic:url('${ICONES_CDN}${s.si}.svg')"></span>` : `<span class="stk-ic stk-glifo">${GLIFOS[s.glifo]}</span>`;
+      const ic = s.si
+        ? `<span class="stk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${ICONES[s.si]}"/></svg></span>`
+        : `<span class="stk-ic">${GLIFOS[s.glifo]}</span>`;
       const rotulo = (typeof s.nome === 'string' ? s.nome : s.nome.en).toLowerCase().replace(/\s+/g, '-');
       // cada bloco é uma janela de app: barra com 3 bolinhas + rótulo, corpo com ícone e nome
       return `<li${oculto ? ' aria-hidden="true" class="stk-copia"' : ''}>
@@ -80,6 +85,11 @@ export function renderStacks(lang) {
     }).join('');
     ul.innerHTML = blocos(false) + blocos(true);
   });
+}
+
+export function pausarStacksForaDaTela() {
+  const st = document.querySelector('.stacks');
+  new IntersectionObserver(([e]) => st.classList.toggle('pausado', !e.isIntersecting), { rootMargin: '120px 0px' }).observe(st);
 }
 
 export function renderProjetos(lang) {

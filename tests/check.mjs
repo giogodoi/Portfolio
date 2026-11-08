@@ -3,8 +3,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
 import { readFileSync, readdirSync } from 'node:fs';
-import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS, FLUXO } from '../js/conteudo.js';
+import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS, FLUXO, STACKS } from '../js/conteudo.js';
 import { postsValidos, ordenarPosts } from '../js/secoes.js';
+import { ICONES } from '../js/icones.js';
 
 test('formas: todas com n pontos, valores finitos e dentro da cena', () => {
   for (const n of [3500, 6500]) {
@@ -86,6 +87,11 @@ test('privacidade: nenhum número de celular nos arquivos publicados', () => {
   const arquivos = ['index.html', 'README.md', 'data/posts.json', 'css/style.css',
     ...readdirSync(new URL('js/', raiz)).map((f) => `js/${f}`)];
   for (const f of arquivos) assert.ok(!celular.test(readFileSync(new URL(f, raiz), 'utf8')), `${f} parece conter um telefone`);
+});
+
+test('stacks: todo ícone do Simple Icons usado no carrossel está em js/icones.js', () => {
+  const faltando = STACKS.flat().filter((s) => s.si && !ICONES[s.si]).map((s) => s.si);
+  assert.deepEqual(faltando, [], 'rode: node tools/gera-icones.mjs js/conteudo.js js/icones.js');
 });
 
 test('formas: determinísticas (mesma semente, mesmo resultado)', () => {
