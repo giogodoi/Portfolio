@@ -25,10 +25,16 @@ img{max-width:100%;display:block}
 
 /* escala tipográfica: 14 · 17 · 21 · 28 · 44–64 · 56–120 */
 h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.01em;line-height:.95;font-variation-settings:'ROND' 100}
-h1{font-size:clamp(52px,8.4vw,124px);font-weight:900;line-height:.94}
+h1{font-size:clamp(52px,7.4vw,112px);font-weight:900;line-height:.94}
 h2{font-size:clamp(40px,5.4vw,72px)}
 h3{font:600 21px/1.3 var(--text)}
 .lead{font-size:clamp(17px,1.4vw,19px);line-height:1.65;color:color-mix(in srgb,var(--ink) 80%,transparent);max-width:34em}
+
+/* ============ partículas ============ */
+/* o fade é só no canvas: nunca em ancestrais de .glass (quebra a refração) */
+#particulas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity .8s ease}
+main,.rodape{position:relative;z-index:1}
+@media(max-width:900px){#particulas{opacity:.32}}
 
 /* ============ nav (liquid glass) ============ */
 nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:min(1000px,calc(100% - 32px));
