@@ -71,7 +71,7 @@ Todo o texto fica em `js/conteudo.js`:
 | `TEXTOS` | Textos fixos da página, em PT e EN. O PT precisa ser igual ao do `index.html` |
 | `ETAPAS` | As 5 etapas do método e as evidências de cada uma |
 | `FLUXO` | Os blocos do fluxo de agentes |
-| `STACKS` | O carrossel de tecnologias |
+| `STACKS` | O carrossel de tecnologias. Ao adicionar um ícone do Simple Icons (`si`), rode `node tools/gera-icones.mjs js/conteudo.js js/icones.js` |
 | `TRAJETORIA`, `FORMACAO`, `CERTIFICACOES` | Dados do currículo |
 | `PROJETOS` | Repositórios públicos |
 
@@ -87,6 +87,7 @@ js/fluxo.js          fluxo de agentes interativo
 js/secoes.js         stacks, trajetória, projetos, posts
 js/particles.js      cena Three.js
 js/formas.js         formas das partículas (módulo puro, testado)
+js/icones.js         ícones do carrossel (paths do Simple Icons, gerado por tools/gera-icones.mjs)
 data/posts.json      posts do LinkedIn
 vendor/              biblioteca liquid-glass
 tests/check.mjs      testes

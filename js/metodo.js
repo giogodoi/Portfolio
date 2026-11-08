@@ -64,6 +64,7 @@ export function iniciarScrollMetodo({ particulas, canvas, reduz, lenis }) {
       barra.style.transform = `scaleY(${prog})`;
     }
     particulas?.progresso(p);
+    particulas?.dormir(op < 0.15);
     if (canvas.isConnected) canvas.style.opacity = op;
   }
 

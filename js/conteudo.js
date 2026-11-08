@@ -140,9 +140,8 @@ export const UI = {
   },
 };
 
-// Stacks do carrossel (currículo + perfil do GitHub). si = ícone do Simple Icons; glifo = desenho próprio
+// Stacks do carrossel (currículo + perfil do GitHub). si = ícone do Simple Icons (path em js/icones.js); glifo = desenho próprio
 // para conceitos sem logo ou marcas que o Simple Icons não distribui (Microsoft)
-export const ICONES_CDN = 'https://cdn.jsdelivr.net/npm/simple-icons@16.33.0/icons/';
 export const STACKS = [
   [
     { nome: 'Python', si: 'python' }, { nome: 'Java', si: 'openjdk' }, { nome: 'C++', si: 'cplusplus' },
