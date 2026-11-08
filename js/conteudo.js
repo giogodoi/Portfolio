@@ -292,11 +292,6 @@ export const PROJETOS = {
     pt: 'Programação inteira no trabalho prático de Programação Matemática.',
     en: 'Integer programming for the Mathematical Programming course project.',
   },
-  'Compiladores': {
-    nome: { pt: 'Compiladores', en: 'Compilers' }, ano: 2026, stack: ['C', 'Lex'],
-    pt: 'Estudo completo da disciplina de Compiladores.',
-    en: 'A complete study of the Compilers course.',
-  },
   'mergesortmultiway': {
     nome: 'Merge sort multiway', ano: 2025, stack: ['C++'],
     pt: 'Ordenação externa com intercalação de múltiplos caminhos.',
