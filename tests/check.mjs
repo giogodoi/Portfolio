@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
 import { readFileSync } from 'node:fs';
-import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES } from '../js/conteudo.js';
+import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS } from '../js/conteudo.js';
 import { postsValidos, ordenarPosts } from '../js/secoes.js';
 
 test('formas: todas com n pontos, valores finitos e dentro da cena', () => {
@@ -42,6 +42,20 @@ test('conteúdo: PT e EN com as mesmas chaves e mesmo número de práticas', () 
   for (const c of CERTIFICACOES) {
     if (!Array.isArray(c.itens)) assert.equal(c.itens.pt.length, c.itens.en.length, c.emissor);
   }
+});
+
+test('i18n: toda chave do HTML existe em PT e EN, e o PT bate com o texto do HTML', () => {
+  assert.deepEqual(Object.keys(TEXTOS.pt).sort(), Object.keys(TEXTOS.en).sort());
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const des = (s) => s.replace(/&amp;/g, '&');
+  let n = 0;
+  for (const [, k, txt] of html.matchAll(/data-i18n="([^"]+)"[^>]*>([^<]*)</g)) {
+    n++;
+    assert.ok(TEXTOS.en[k], `chave ${k} sem EN`);
+    assert.equal(TEXTOS.pt[k], des(txt).trim(), `PT de ${k} diferente do HTML`);
+  }
+  for (const [, k] of html.matchAll(/data-i18n-(?:aria|html)="([^"]+)"/g)) assert.ok(TEXTOS.pt[k] && TEXTOS.en[k], k);
+  assert.ok(n > 30, 'esperava mais de 30 textos traduzíveis');
 });
 
 test('posts.json: arquivo válido e todos os posts com formato aceito pelo site', () => {
