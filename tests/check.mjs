@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES, TEXTOS, FLUXO } from '../js/conteudo.js';
 import { postsValidos, ordenarPosts } from '../js/secoes.js';
 
@@ -77,6 +77,15 @@ test('posts: validação rejeita formatos errados e ordena destaque, depois data
   assert.equal(postsValidos({}).length, 0);
   const ordem = ordenarPosts([{ ...ok, titulo: 'velho', data: '2025-01-01' }, { ...ok, titulo: 'novo', data: '2026-05-01' }, { ...ok, titulo: 'fixo', data: '2024-01-01', destaque: true }]);
   assert.deepEqual(ordem.map((p) => p.titulo), ['fixo', 'novo', 'velho']);
+});
+
+test('privacidade: nenhum número de celular nos arquivos publicados', () => {
+  // padrão genérico (DDD + 9xxxx-xxxx): o número real nunca deve aparecer no repositório, nem aqui
+  const celular = /\(?\b\d{2}\)?\s*9\d{4}[-\s]?\d{4}\b/;
+  const raiz = new URL('../', import.meta.url);
+  const arquivos = ['index.html', 'README.md', 'data/posts.json', 'css/style.css',
+    ...readdirSync(new URL('js/', raiz)).map((f) => `js/${f}`)];
+  for (const f of arquivos) assert.ok(!celular.test(readFileSync(new URL(f, raiz), 'utf8')), `${f} parece conter um telefone`);
 });
 
 test('formas: determinísticas (mesma semente, mesmo resultado)', () => {
