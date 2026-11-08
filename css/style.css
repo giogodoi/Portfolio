@@ -37,12 +37,13 @@ main,.rodape{position:relative;z-index:1}
 @media(max-width:900px){#particulas{opacity:.32}}
 
 /* ============ nav (liquid glass) ============ */
-nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:min(1000px,calc(100% - 32px));
-  border-radius:999px;padding:6px 6px 6px 16px;display:flex;align-items:center;gap:18px}
-.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;margin-right:auto}
+/* cápsula do tamanho do conteúdo: menos área de vidro sem função */
+nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:max-content;max-width:calc(100% - 32px);
+  border-radius:999px;padding:6px 6px 6px 16px;display:flex;align-items:center;gap:14px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;margin-right:clamp(4px,2vw,24px)}
 .marca svg{width:22px;height:22px}
 .links{display:flex;gap:4px;list-style:none;padding:0}
-.links a{display:block;padding:6px 12px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;color:color-mix(in srgb,var(--ink) 82%,transparent)}
+.links a{display:block;padding:6px 12px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;color:var(--ink);text-shadow:0 1px 8px rgb(0 0 0 / .6)}
 .links a:hover{color:var(--ink);background:rgb(255 255 255 / .08)}
 .idioma{background:rgb(120 120 128 / .24)}
 .idioma [role=tab]{min-height:28px;padding:0 10px;font:500 12px var(--text);letter-spacing:.04em}
