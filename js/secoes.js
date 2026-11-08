@@ -25,6 +25,33 @@ export function renderTrajetoria(lang) {
     </li>`).join('');
 }
 
+// Linha do tempo: uma trilha única do primeiro ao último ponto, preenchida conforme a rolagem.
+// Devolve medir(), que precisa rodar depois de cada render (alturas mudam com idioma e fontes).
+export function iniciarLinhaTempo() {
+  const ol = document.getElementById('linha-tempo');
+  let pontos = [], topo = 0, alt = 0;
+
+  function preencher() {
+    const agulha = innerHeight * 0.55 - ol.getBoundingClientRect().top - topo; // quanto da linha já passou da altura de leitura
+    ol.style.setProperty('--preench', alt ? Math.min(1, Math.max(0, agulha / alt)) : 0);
+    ol.querySelectorAll('.marco').forEach((m, i) => m.classList.toggle('passou', pontos[i] - topo <= agulha + 1));
+  }
+  function medir() {
+    const base = ol.getBoundingClientRect().top;
+    pontos = [...ol.querySelectorAll('.marco-txt')].map((t) => t.getBoundingClientRect().top - base + 12.5); // centro do ponto
+    if (!pontos.length) return;
+    topo = pontos[0];
+    alt = pontos[pontos.length - 1] - topo;
+    ol.style.setProperty('--topo', `${topo}px`);
+    ol.style.setProperty('--alt', `${alt}px`);
+    preencher();
+  }
+  addEventListener('scroll', preencher, { passive: true });
+  addEventListener('resize', medir);
+  document.fonts?.ready.then(medir);
+  return medir;
+}
+
 export function renderProjetos(lang) {
   const lista = Object.entries(PROJETOS).sort((a, b) => b[1].ano - a[1].ano); // sort estável: mantém a ordem de destaque
   document.getElementById('lista-projetos').innerHTML = lista.map(([repo, p]) => `

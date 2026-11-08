@@ -1,6 +1,6 @@
 import { TEXTOS } from './conteudo.js';
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
-import { renderTrajetoria, renderProjetos, renderPosts, postsValidos } from './secoes.js';
+import { renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IDIOMAS = ['pt', 'en'];
@@ -34,9 +34,11 @@ function aplicarTextos() {
   document.querySelectorAll('[data-i18n-aria]').forEach((el) => el.setAttribute('aria-label', t[el.dataset.i18nAria]));
 }
 
+const medirLinha = iniciarLinhaTempo();
 function renderTudo() {
   renderMetodo(lang, posts);
   renderTrajetoria(lang);
+  medirLinha();
   renderProjetos(lang);
   renderPosts(lang, posts);
 }
