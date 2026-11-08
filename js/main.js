@@ -1,4 +1,5 @@
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
+import { renderTrajetoria } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let lang = 'pt';
@@ -12,6 +13,7 @@ if (!reduz && window.Lenis) {
 }
 
 renderMetodo(lang);
+renderTrajetoria(lang);
 
 // Nuvem de partículas: se WebGL ou o CDN falharem, a página segue sem ela
 const canvas = document.getElementById('particulas');

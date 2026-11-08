@@ -26,6 +26,56 @@ export const UI = {
   },
 };
 
+// Trajetória (currículo), da mais recente para a mais antiga
+export const TRAJETORIA = [
+  {
+    org: 'Agência Zetta', quando: { pt: 'fev 2026 – atual', en: 'Feb 2026 – present' },
+    pt: { cargo: 'Software Engineer', itens: ['Projetos com foco em sustentabilidade, eficiência de serviços e tecnologia de ponta na agência de inovação, geotecnologia e sistemas inteligentes da UFLA.', 'Destaque em Desenvolvimento de Software (set 2026).'] },
+    en: { cargo: 'Software Engineer', itens: ['Projects focused on sustainability, service efficiency and cutting-edge technology at UFLA’s innovation, geotechnology and intelligent systems agency.', 'Software Development Highlight award (Sep 2026).'] },
+  },
+  {
+    org: 'Agência Zetta', quando: { pt: 'fev – jun 2026', en: 'Feb – Jun 2026' },
+    pt: { cargo: 'Pesquisador em Inteligência Artificial', itens: ['Pesquisa sobre IA no combate a incêndios florestais para um órgão federal, com MVP de RAG e agentes entregue em 2,5 semanas.', 'Análise de nuvem vs. infraestrutura local e protocolos de coleta para zonas sem conectividade.'] },
+    en: { cargo: 'Artificial Intelligence Researcher', itens: ['Research on AI for fighting wildfires for a federal agency, with a RAG and agents MVP shipped in 2.5 weeks.', 'Cloud vs. on-premise analysis and data collection protocols for zones with no connectivity.'] },
+  },
+  {
+    org: 'NIAD (UFLA)', quando: { pt: 'set 2025 – atual', en: 'Sep 2025 – present' },
+    pt: { cargo: 'Pesquisador', itens: ['Machine learning, mineração de dados e redução de dados no núcleo de IA e ciência de dados da UFLA.'] },
+    en: { cargo: 'Researcher', itens: ['Machine learning, data mining and data reduction at UFLA’s AI and data science lab.'] },
+  },
+  {
+    org: 'NIAD (UFLA)', quando: { pt: 'jun – set 2025', en: 'Jun – Sep 2025' },
+    pt: { cargo: 'Trainee', itens: ['IA de jogo da velha com MinMax e medição do ganho da poda alfa-beta, com métricas e gráficos.'] },
+    en: { cargo: 'Trainee', itens: ['Tic-tac-toe AI with MinMax, measuring the gain from alpha-beta pruning with metrics and charts.'] },
+  },
+  {
+    org: 'Comp Júnior', quando: { pt: 'mar – ago 2025', en: 'Mar – Aug 2025' },
+    pt: { cargo: 'Diretor Comercial, Designer e Trainee', itens: ['Planejamento estratégico de marketing e vendas, com processos de integração da equipe no Miro e no Pipefy.', 'Protótipos no Figma, da baixa à alta fidelidade, a partir das ideias dos clientes.'] },
+    en: { cargo: 'Sales Director, Designer and Trainee', itens: ['Strategic planning for marketing and sales, with team onboarding processes in Miro and Pipefy.', 'Figma prototypes, from low to high fidelity, built from clients’ ideas.'] },
+  },
+  {
+    org: 'Unimed Guaxupé', quando: { pt: 'fev – set 2024', en: 'Feb – Sep 2024' },
+    pt: { cargo: 'Assistente Administrativo', itens: ['Rotinas operacionais e resolução de problemas numa cooperativa de trabalho médico.'] },
+    en: { cargo: 'Administrative Assistant', itens: ['Operational routines and problem solving at a medical cooperative.'] },
+  },
+];
+
+export const FORMACAO = {
+  org: 'Universidade Federal de Lavras (UFLA)', quando: { pt: 'set 2024 – jun 2028', en: 'Sep 2024 – Jun 2028' },
+  pt: 'Bacharelado em Ciência da Computação', en: 'B.Sc. in Computer Science',
+};
+
+// Certificações por emissor; destaque = aparecem primeiro e com ênfase
+export const CERTIFICACOES = [
+  { emissor: 'Anthropic', destaque: true, itens: ['Claude Code 101', 'Claude 101', 'Introduction to Model Context Protocol', 'AI Fluency: Framework & Foundations'], quando: { pt: 'jun 2026', en: 'Jun 2026' } },
+  { emissor: 'Microsoft', destaque: true, itens: { pt: ['Introdução a IA no Azure'], en: ['Introduction to AI on Azure'] }, quando: { pt: 'jul 2026', en: 'Jul 2026' } },
+  { emissor: 'Even3', itens: { pt: ['Agentes de IA na Pesquisa Científica e Acadêmica'], en: ['AI Agents in Scientific and Academic Research'] }, quando: { pt: 'ago 2026', en: 'Aug 2026' } },
+  { emissor: 'Udemy', itens: { pt: ['Automação com IA usando n8n'], en: ['AI Automation with n8n'] }, quando: { pt: 'mai 2026', en: 'May 2026' } },
+  { emissor: 'RL&Associados', itens: ['Six Sigma White Belt'], quando: { pt: 'jan 2025', en: 'Jan 2025' } },
+  { emissor: 'IBM SkillsBuild', itens: ['Working in a Digital World: Professional Skills'], quando: { pt: 'ago 2024', en: 'Aug 2024' } },
+  { emissor: 'Fundação Bradesco', itens: { pt: ['Lei Geral de Proteção de Dados (LGPD)'], en: ['Brazilian General Data Protection Law (LGPD)'] }, quando: { pt: 'jan 2024', en: 'Jan 2024' } },
+];
+
 // Repositórios públicos. A chave é o nome do repo em github.com/giogodoi
 export const PROJETOS = {
   'Ariranha': {
