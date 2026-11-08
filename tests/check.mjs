@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
-import { ETAPAS, PROJETOS, UI } from '../js/conteudo.js';
+import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES } from '../js/conteudo.js';
 
 test('formas: todas com n pontos, valores finitos e dentro da cena', () => {
   for (const n of [3500, 6500]) {
@@ -33,6 +33,13 @@ test('conteúdo: PT e EN com as mesmas chaves e mesmo número de práticas', () 
     assert.equal(e.pt.praticas.length, e.en.praticas.length, e.id);
   }
   for (const [k, p] of Object.entries(PROJETOS)) assert.ok(p.pt && p.en && p.nome && p.ano, k);
+  for (const t of TRAJETORIA) {
+    assert.ok(t.quando.pt && t.quando.en, t.org);
+    assert.equal(t.pt.itens.length, t.en.itens.length, `${t.org}: itens PT/EN`);
+  }
+  for (const c of CERTIFICACOES) {
+    if (!Array.isArray(c.itens)) assert.equal(c.itens.pt.length, c.itens.en.length, c.emissor);
+  }
 });
 
 test('formas: determinísticas (mesma semente, mesmo resultado)', () => {

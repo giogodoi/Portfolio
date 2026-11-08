@@ -63,6 +63,39 @@ nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:min(
 section,.etapa{scroll-margin-top:88px}
 .secao{position:relative;padding:clamp(96px,14vh,160px) var(--gutter);border-top:1px solid var(--rule)}
 
+/* ============ sobre ============ */
+.sobre{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px clamp(32px,6vw,96px);align-items:start}
+.sobre h2{margin-bottom:28px;max-width:12em;text-wrap:balance}
+.sobre .lead+.lead{margin-top:16px}
+.fatos{display:grid;gap:28px;padding-top:12px}
+.fatos div{display:grid;grid-template-columns:clamp(110px,10.5vw,152px) 1fr;gap:18px;align-items:baseline;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.fatos dt{font:900 clamp(40px,4.4vw,60px)/1 var(--display);font-variation-settings:'ROND' 100;color:var(--haze)}
+.fatos dd{font-size:15px;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+.habilidades{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-top:32px;border-top:1px solid var(--rule)}
+.habilidades dt{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:6px}
+.habilidades dd{font-size:15px;line-height:1.7}
+@media(max-width:900px){.sobre{grid-template-columns:1fr}.habilidades{grid-template-columns:1fr}.fatos div{grid-template-columns:96px 1fr}}
+
+/* ============ trajetória ============ */
+.trajetoria h2{margin-bottom:20px}
+.linha-tempo{list-style:none;padding:0;margin-top:56px;max-width:980px}
+.marco{position:relative;display:grid;grid-template-columns:170px 1fr;gap:clamp(20px,4vw,56px);padding:0 0 40px}
+.marco-quando{font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums;padding-top:3px}
+.marco-txt{position:relative;padding-left:28px;border-left:1px solid var(--rule)}
+.marco-txt::before{content:"";position:absolute;left:-5px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--void);border:2px solid var(--signal)}
+.marco:first-child .marco-txt::before{background:var(--signal);box-shadow:0 0 0 5px rgb(60 72 228 / .2)}
+.marco-txt h3{margin-bottom:8px}
+.marco-txt h3 span{display:block;font-size:15px;font-weight:500;color:var(--haze);margin-top:2px}
+.marco-txt ul{padding-left:18px;display:grid;gap:4px;font-size:15px;color:color-mix(in srgb,var(--ink) 78%,transparent);max-width:60ch}
+.marco-base .marco-txt::before{border-color:var(--dim)}
+@media(max-width:700px){.marco{grid-template-columns:1fr;gap:6px}.marco-quando{padding-left:29px}}
+.cert-titulo{margin:40px 0 18px}
+.certificacoes{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:1120px}
+.certificacoes li{padding:16px 18px;border:1px solid var(--rule);border-radius:12px;font-size:14px;line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+.cert-emissor{display:flex;justify-content:space-between;gap:8px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.cert-emissor span{font-weight:400;color:var(--dim)}
+.cert-destaque{border-color:rgb(60 72 228 / .55)!important;background:rgb(60 72 228 / .08)}
+
 /* ============ método ============ */
 .metodo-cab{padding-bottom:24px}
 .metodo-cab h2{margin-bottom:20px}
