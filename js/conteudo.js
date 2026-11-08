@@ -14,6 +14,8 @@ export const UI = {
     post: 'Post',
     irEtapa: 'Ir para a etapa {n}: {t}',
     abreGithub: 'abre no GitHub',
+    lerLinkedin: 'Ler no LinkedIn',
+    etapa: 'Etapa',
   },
   en: {
     etapaDe: 'Stage {n} of 5',
@@ -23,6 +25,8 @@ export const UI = {
     post: 'Post',
     irEtapa: 'Go to stage {n}: {t}',
     abreGithub: 'opens on GitHub',
+    lerLinkedin: 'Read on LinkedIn',
+    etapa: 'Stage',
   },
 };
 

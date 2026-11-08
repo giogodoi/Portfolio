@@ -2,7 +2,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { gerarFormas, FORMAS } from '../js/formas.js';
+import { readFileSync } from 'node:fs';
 import { ETAPAS, PROJETOS, UI, TRAJETORIA, CERTIFICACOES } from '../js/conteudo.js';
+import { postsValidos, ordenarPosts } from '../js/secoes.js';
 
 test('formas: todas com n pontos, valores finitos e dentro da cena', () => {
   for (const n of [3500, 6500]) {
@@ -40,6 +42,22 @@ test('conteúdo: PT e EN com as mesmas chaves e mesmo número de práticas', () 
   for (const c of CERTIFICACOES) {
     if (!Array.isArray(c.itens)) assert.equal(c.itens.pt.length, c.itens.en.length, c.emissor);
   }
+});
+
+test('posts.json: arquivo válido e todos os posts com formato aceito pelo site', () => {
+  const lista = JSON.parse(readFileSync(new URL('../data/posts.json', import.meta.url), 'utf8'));
+  assert.ok(Array.isArray(lista), 'posts.json precisa ser uma lista');
+  const validos = postsValidos(lista);
+  const rejeitados = lista.filter((p) => !validos.includes(p)).map((p) => p?.url ?? JSON.stringify(p));
+  assert.deepEqual(rejeitados, [], 'posts com formato inválido (url do LinkedIn, data AAAA-MM-DD, titulo, etapa)');
+});
+
+test('posts: validação rejeita formatos errados e ordena destaque, depois data', () => {
+  const ok = { url: 'https://www.linkedin.com/posts/x', data: '2026-10-01', titulo: 'A' };
+  assert.equal(postsValidos([ok, { ...ok, url: 'javascript:alert(1)' }, { ...ok, data: '01/10/2026' }, { ...ok, etapa: 'nada' }, null]).length, 1);
+  assert.equal(postsValidos({}).length, 0);
+  const ordem = ordenarPosts([{ ...ok, titulo: 'velho', data: '2025-01-01' }, { ...ok, titulo: 'novo', data: '2026-05-01' }, { ...ok, titulo: 'fixo', data: '2024-01-01', destaque: true }]);
+  assert.deepEqual(ordem.map((p) => p.titulo), ['fixo', 'novo', 'velho']);
 });
 
 test('formas: determinísticas (mesma semente, mesmo resultado)', () => {

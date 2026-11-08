@@ -150,5 +150,62 @@ a.ev:hover{border-color:#353a5c;background:#0E1020}
   .etapa{position:static;opacity:1;visibility:visible;translate:none;transition:none}
 }
 
+/* ============ projetos ============ */
+.projetos h2{margin-bottom:20px}
+.lista-projetos{list-style:none;padding:0;margin-top:48px;border-top:1px solid var(--rule)}
+.proj{display:grid;grid-template-columns:minmax(150px,1.1fr) minmax(0,2.4fr) minmax(0,1.5fr) 48px 16px;gap:24px;align-items:baseline;
+  padding:20px 4px;border-bottom:1px solid var(--rule);text-decoration:none;transition:background .25s}
+.proj:hover{background:rgb(255 255 255 / .03)}
+.proj:hover .proj-nome{color:var(--haze)}
+.proj-nome{font-weight:600;font-size:17px;transition:color .25s}
+.proj-desc{font-size:15px;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+.proj-stack{font-size:13px;color:var(--dim)}
+.proj-ano{font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums;text-align:right}
+@media(max-width:900px){
+  .proj{grid-template-columns:1fr auto;gap:4px 16px}
+  .proj-nome{grid-column:1}.proj-ano{grid-column:2;grid-row:1}
+  .proj-desc,.proj-stack{grid-column:1/-1}
+  .proj .seta{display:none}
+}
+
+/* ============ posts ============ */
+.posts-titulo{font-size:clamp(30px,3.4vw,48px);line-height:1.1;max-width:20em;color:var(--dim);text-wrap:balance}
+.posts-titulo span{color:var(--haze)}
+.posts .lead{margin-top:18px}
+.posts-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:44px}
+.posts-grade[hidden]{display:none}
+.term{border-radius:14px;background:var(--panel);border:1px solid var(--rule);overflow:hidden;display:flex;flex-direction:column;
+  opacity:0;translate:0 24px;transition:opacity .6s ease var(--atraso),translate .6s ease var(--atraso)}
+.term.in{opacity:1;translate:0 0}
+.term-barra{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--rule);font:400 12px var(--code);color:var(--dim)}
+.term-barra i{width:9px;height:9px;border-radius:50%;background:#2A2D45}
+.term-barra span{margin-left:8px}
+.term-corpo{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.term-cmd{font:400 13px var(--code);color:var(--dim)}
+.term-cmd b{color:var(--signal);font-weight:500}
+.term-corpo img{border-radius:8px;aspect-ratio:16/9;object-fit:cover;width:100%}
+.term-corpo h3{font-size:18px}
+.term-meta{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px;color:var(--dim)}
+.selo{padding:2px 8px;border-radius:999px;border:1px solid rgb(60 72 228 / .5);color:var(--haze);font-size:12px}
+.term-resumo{font-size:15px;color:color-mix(in srgb,var(--ink) 78%,transparent);flex:1}
+.term-fim{margin-top:auto;display:flex;align-items:center}
+.term-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;text-decoration:none;color:var(--haze)}
+.term-link:hover{color:var(--ink)}
+.term-link .seta{margin-left:0;color:inherit}
+.cursor{display:inline-block;width:8px;height:16px;background:var(--signal);vertical-align:-3px;margin-left:6px;animation:pisca 1.1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.posts-cta{margin-top:40px}
+.posts-cta .lg-button{text-decoration:none}
+@media(max-width:900px){.posts-grade{grid-template-columns:1fr}}
+
+/* ============ contato ============ */
+.contato h2{max-width:14em;margin-bottom:20px;text-wrap:balance}
+.contato-email{display:inline-block;margin-top:36px;font:800 clamp(22px,3.4vw,44px)/1.1 var(--display);font-variation-settings:'ROND' 100;
+  color:var(--haze);text-decoration:none;word-break:break-all;border-bottom:2px solid rgb(60 72 228 / .6);padding-bottom:6px}
+.contato-email:hover{color:var(--ink);border-color:var(--signal)}
+.contato-links{list-style:none;padding:0;display:flex;gap:24px;margin-top:28px}
+.contato-links a{font-weight:600;text-decoration:none;color:color-mix(in srgb,var(--ink) 82%,transparent);border-bottom:1px solid var(--rule)}
+.contato-links a:hover{color:var(--ink);border-color:var(--haze)}
+
 /* ============ rodapé ============ */
 .rodape{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:32px var(--gutter);border-top:1px solid var(--rule);color:var(--dim);font-size:14px}

@@ -8,7 +8,8 @@ function card(ev, lang, u) {
     return `<div class="ev ev-exp"><p class="ev-tipo">${u.experiencia} <b>${esc(ev.org)}</b></p><p>${esc(ev[lang])}</p></div>`;
   }
   if (ev.tipo === 'post') {
-    return `<a class="ev ev-post" href="${esc(ev.url)}" target="_blank" rel="noopener"><p class="ev-tipo">${u.post} <b>${esc(ev.data)}</b>${SETA}</p><p>${esc(ev.titulo)}</p></a>`;
+    const data = new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'en', { month: 'short', year: 'numeric' }).format(new Date(ev.data + 'T12:00:00'));
+    return `<a class="ev ev-post" href="${esc(ev.url)}" target="_blank" rel="noopener"><p class="ev-tipo">${u.post} <b>LinkedIn, ${esc(data)}</b>${SETA}</p><p>${esc(ev.titulo)}</p></a>`;
   }
   const p = PROJETOS[ev.repo];
   return `<a class="ev ev-proj" href="${GITHUB}/${ev.repo}" target="_blank" rel="noopener" aria-label="${esc(p.nome)}, ${u.abreGithub}"><p class="ev-tipo">${u.projeto} <b>${esc(p.nome)}</b>${SETA}</p><p>${esc(ev[lang])}</p></a>`;
