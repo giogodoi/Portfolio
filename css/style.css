@@ -107,7 +107,13 @@ section,.etapa{scroll-margin-top:88px}
 .fluxo-tela.completo .fluxo-barra p{color:var(--haze)}
 .fluxo-barra span,.fluxo-reiniciar{white-space:nowrap}
 .fluxo-reiniciar{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--haze);padding:6px 12px;border-radius:999px;border:1px solid var(--rule)}
+.fluxo-reiniciar{display:inline-flex;align-items:center;gap:6px}
+.fluxo-reiniciar svg{width:14px;height:14px}
+.fluxo-reiniciar[hidden]{display:none} /* all:unset anula o hidden do navegador */
 .fluxo-reiniciar:hover{border-color:var(--dim)}
+@media(max-width:420px){ /* só o ícone; o texto continua como nome acessível */
+  .fluxo-reiniciar span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+}
 .fluxo-reiniciar:focus-visible{outline:2px solid var(--haze);outline-offset:2px}
 .fluxo-fios{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 .fio-base{fill:none;stroke:#2A2D45;stroke-width:2}
@@ -234,7 +240,7 @@ a.ev:hover{border-color:#353a5c;background:#0E1020}
   .metodo-palco{position:static;height:auto;display:block;padding:0 var(--gutter) 64px}
   .trilho{display:none}
   .etapas{height:auto;display:grid;gap:72px}
-  .etapa{position:static;opacity:1;visibility:visible;translate:none;transition:none}
+  .etapa{position:static;opacity:1;visibility:visible;translate:none;transition:none;max-width:760px}
 }
 
 /* ============ projetos ============ */
@@ -287,8 +293,8 @@ a.ev:hover{border-color:#353a5c;background:#0E1020}
 
 /* ============ contato ============ */
 .contato h2{max-width:14em;margin-bottom:20px;text-wrap:balance}
-.contato-email{display:inline-block;margin-top:36px;font:800 clamp(22px,3.4vw,44px)/1.1 var(--display);font-variation-settings:'ROND' 100;
-  color:var(--haze);text-decoration:none;word-break:break-all;border-bottom:2px solid rgb(60 72 228 / .6);padding-bottom:6px}
+.contato-email{display:inline-block;margin-top:36px;font:800 clamp(17px,5vw,44px)/1.1 var(--display);font-variation-settings:'ROND' 100;
+  color:var(--haze);text-decoration:none;overflow-wrap:anywhere;border-bottom:2px solid rgb(60 72 228 / .6);padding-bottom:6px}
 .contato-email:hover{color:var(--ink);border-color:var(--signal)}
 .contato-links{list-style:none;padding:0;display:flex;gap:24px;margin-top:28px}
 .contato-links a{font-weight:600;text-decoration:none;color:color-mix(in srgb,var(--ink) 82%,transparent);border-bottom:1px solid var(--rule)}
