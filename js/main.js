@@ -62,6 +62,12 @@ abas.forEach((b) => b.addEventListener('click', () => mudarIdioma(b.dataset.lang
 document.querySelectorAll('[data-i18n="fluxo.dica"]').forEach((el) => { el.dataset.i18n = chaveDica(); });
 aplicarTextos();
 renderTudo();
+
+// grifo de marca-texto: desenha uma vez quando o título entra na tela
+const ioGrifo = new IntersectionObserver((es) => es.forEach((e) => {
+  if (e.isIntersecting) { e.target.classList.add('grifado'); ioGrifo.unobserve(e.target); }
+}), { threshold: 0.6 });
+document.querySelectorAll('h2[data-grifo]').forEach((h) => ioGrifo.observe(h));
 iniciarFluxo();
 
 // ---------- rolagem suave só para quem não pediu movimento reduzido ----------
