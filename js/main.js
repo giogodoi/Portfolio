@@ -1,5 +1,6 @@
 import { TEXTOS } from './conteudo.js';
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
+import { renderFluxo, iniciarFluxo } from './fluxo.js';
 import { renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -37,6 +38,7 @@ function aplicarTextos() {
 const medirLinha = iniciarLinhaTempo();
 function renderTudo() {
   renderMetodo(lang, posts);
+  renderFluxo(lang);
   renderTrajetoria(lang);
   medirLinha();
   renderProjetos(lang);
@@ -57,6 +59,7 @@ abas.forEach((b) => b.addEventListener('click', () => mudarIdioma(b.dataset.lang
 
 if (lang !== 'pt') aplicarTextos(); // o HTML já vem em PT
 renderTudo();
+iniciarFluxo();
 
 // ---------- rolagem suave só para quem não pediu movimento reduzido ----------
 let lenis = null;

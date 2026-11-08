@@ -32,6 +32,7 @@
   </a>
   <ul class="links">
     <li><a href="#metodo" data-i18n="nav.metodo">Método</a></li>
+    <li><a href="#agentes" data-i18n="nav.agentes">Agentes</a></li>
     <li><a href="#trajetoria" data-i18n="nav.trajetoria">Trajetória</a></li>
     <li><a href="#projetos" data-i18n="nav.projetos">Projetos</a></li>
     <li><a href="#posts" data-i18n="nav.posts">Posts</a></li>
@@ -90,6 +91,22 @@
         </nav>
         <div class="etapas" id="etapas"></div>
       </div>
+    </div>
+  </section>
+
+  <section class="secao agentes" id="agentes" aria-labelledby="agentes-titulo">
+    <h2 id="agentes-titulo" data-i18n="fluxo.titulo">Agentes de IA, do primeiro contato à memória.</h2>
+    <p class="lead" data-i18n="fluxo.lead">Monto fluxos no n8n que ligam canais de conversa, modelos de IA e bancos de dados, com a LGPD dentro do fluxo e não remendada no fim.</p>
+    <div class="fluxo-tela" id="fluxo-tela" role="group" aria-label="Fluxo de agente de IA no n8n" data-i18n-aria="fluxo.aria">
+      <div class="fluxo-barra">
+        <p><i aria-hidden="true"></i><span id="fluxo-status" aria-live="polite">0 de 5 blocos executados</span></p>
+        <button type="button" class="fluxo-reiniciar" id="fluxo-reiniciar" hidden><span data-i18n="fluxo.reiniciar">Executar de novo</span></button>
+      </div>
+      <svg class="fluxo-fios" aria-hidden="true"></svg>
+      <ol class="fluxo-nos" id="fluxo-nos"></ol>
+    </div>
+    <div class="fluxo-detalhe" id="fluxo-detalhe" aria-live="polite">
+      <p class="det-dica" data-i18n="fluxo.dica">Passe o mouse ou toque nos blocos para executar o fluxo.</p>
     </div>
   </section>
 
