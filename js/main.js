@@ -1,6 +1,6 @@
 import { TEXTOS } from './conteudo.js';
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
-import { renderFluxo, iniciarFluxo } from './fluxo.js';
+import { renderFluxo, iniciarFluxo, chaveDica } from './fluxo.js';
 import { renderStacks, renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -58,7 +58,9 @@ function mudarIdioma(novo) {
 seletor.addEventListener('lg:change', (e) => mudarIdioma(e.detail.tab.dataset.lang));
 abas.forEach((b) => b.addEventListener('click', () => mudarIdioma(b.dataset.lang))); // funciona mesmo sem o liquid-glass
 
-if (lang !== 'pt') aplicarTextos(); // o HTML já vem em PT
+// em telas de toque a dica não fala de mouse
+document.querySelectorAll('[data-i18n="fluxo.dica"]').forEach((el) => { el.dataset.i18n = chaveDica(); });
+aplicarTextos();
 renderTudo();
 iniciarFluxo();
 

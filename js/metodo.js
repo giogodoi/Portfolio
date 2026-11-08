@@ -1,5 +1,6 @@
 import { ETAPAS, PROJETOS, UI, GITHUB } from './conteudo.js';
 
+export const nomeProj = (p, lang) => (typeof p.nome === 'string' ? p.nome : p.nome[lang]);
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const SETA = '<svg class="seta" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -12,7 +13,7 @@ function card(ev, lang, u) {
     return `<a class="ev ev-post" href="${esc(ev.url)}" target="_blank" rel="noopener"><p class="ev-tipo">${u.post} <b>LinkedIn, ${esc(data)}</b>${SETA}</p><p>${esc(ev.titulo)}</p></a>`;
   }
   const p = PROJETOS[ev.repo];
-  return `<a class="ev ev-proj" href="${GITHUB}/${ev.repo}" target="_blank" rel="noopener" aria-label="${esc(p.nome)}, ${u.abreGithub}"><p class="ev-tipo">${u.projeto} <b>${esc(p.nome)}</b>${SETA}</p><p>${esc(ev[lang])}</p></a>`;
+  return `<a class="ev ev-proj" href="${GITHUB}/${ev.repo}" target="_blank" rel="noopener" aria-label="${esc(nomeProj(p, lang))}, ${u.abreGithub}"><p class="ev-tipo">${u.projeto} <b>${esc(nomeProj(p, lang))}</b>${SETA}</p><p>${esc(ev[lang])}</p></a>`;
 }
 
 // posts: itens de data/posts.json; entram como evidência na etapa indicada no campo "etapa"
@@ -48,13 +49,13 @@ export function iniciarScrollMetodo({ particulas, canvas, reduz, lenis }) {
       let ativa = -1;
       arts.forEach((a, i) => { if (a.getBoundingClientRect().top < vh * 0.6) ativa = i; });
       p = ativa + 1; // 0 = esfera do hero
-      op = scrollY < vh * 0.5 || (r.top < vh * 0.6 && r.bottom > vh * 0.4) ? 0.32 : 0.14;
+      op = scrollY < vh * 0.5 || (r.top < vh * 0.6 && r.bottom > vh * 0.4) ? 0.2 : 0.1;
     } else {
       const prog = Math.min(1, Math.max(0, -r.top / (r.height - vh)));
       const s = prog * ETAPAS.length, ativa = Math.min(ETAPAS.length - 1, Math.floor(s)), u = s - ativa;
       // cada etapa segura a forma e só faz o morph para a próxima nos últimos 28% do trecho
       p = r.top > 0 ? Math.max(0, 1 - r.top / vh) : ativa + 1 + (ativa < ETAPAS.length - 1 ? Math.max(0, (u - 0.72) / 0.28) : 0);
-      op = scrollY < vh * 0.6 || (r.top < vh * 0.35 && r.bottom > vh * 0.65) ? 1 : 0.2;
+      op = scrollY < vh * 0.6 || (r.top < vh * 0.35 && r.bottom > vh * 0.65) ? 1 : 0.07; // quase some fora do hero/método: não cruza o texto
       if (ativa !== ultima) {
         arts.forEach((a, i) => { a.classList.toggle('ativa', i === ativa); a.inert = i !== ativa; });
         document.querySelectorAll('#trilho-passos button').forEach((b, i) => b.toggleAttribute('aria-current', i === ativa));

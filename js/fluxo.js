@@ -1,4 +1,4 @@
-import { FLUXO, UI, GITHUB, TEXTOS } from './conteudo.js';
+import { FLUXO, FLUXO_REPO, FLUXO_DEMO, UI, GITHUB, TEXTOS } from './conteudo.js';
 import { esc } from './metodo.js';
 
 const ic = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -11,7 +11,9 @@ const ICONES = {
 };
 const OK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 8.5 2.5 2.5L12 5.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+export const chaveDica = () => (matchMedia('(hover: none)').matches ? 'fluxo.dicaToque' : 'fluxo.dica');
 const ativos = new Set();
+let ponteiro = 'mouse';
 let atual = -1, lang = 'pt';
 const tela = () => document.getElementById('fluxo-tela');
 
@@ -66,8 +68,8 @@ function atualizar() {
     <p class="det-num">${u.bloco.replace('{n}', atual + 1)}</p>
     <h3>${esc(n[lang].titulo)}</h3>
     <p class="det-txt">${esc(n[lang].texto)}</p>
-    <ul class="det-tags">${n.tags.map((tg) => `<li>${esc(tg)}</li>`).join('')}</ul>
-    ${n.repo ? `<p class="det-links"><a href="${GITHUB}/${n.repo}" target="_blank" rel="noopener">${u.verProjeto}</a><a href="${esc(n.demo)}" target="_blank" rel="noopener">${u.verDemo}</a></p>` : ''}`;
+    <ul class="det-tags">${n.tags[lang].map((tg) => `<li>${esc(tg)}</li>`).join('')}</ul>
+    <p class="det-links"><a href="${GITHUB}/${FLUXO_REPO}" target="_blank" rel="noopener">${u.verProjeto}</a><a href="${FLUXO_DEMO}" target="_blank" rel="noopener">${u.verDemo}</a></p>`;
 }
 
 function ativar(i) {
@@ -80,13 +82,20 @@ function ativar(i) {
 export function iniciarFluxo() {
   const t = tela();
   const no = (e) => e.target.closest?.('.no');
-  t.addEventListener('pointerover', (e) => { if (no(e)) ativar(+no(e).dataset.i); });
+  // arrastar o dedo para rolar dispara pointerover: só o mouse acende por passagem; toque acende no click
+  t.addEventListener('pointerover', (e) => { if (e.pointerType === 'mouse' && no(e)) ativar(+no(e).dataset.i); });
+  t.addEventListener('pointerdown', (e) => { ponteiro = e.pointerType; });
   t.addEventListener('focusin', (e) => { if (no(e)) ativar(+no(e).dataset.i); });
-  t.addEventListener('click', (e) => { if (no(e)) ativar(+no(e).dataset.i); });
+  t.addEventListener('click', (e) => {
+    if (!no(e)) return;
+    ativar(+no(e).dataset.i);
+    // no celular os 5 blocos empilhados empurram o painel para fora da tela
+    if (ponteiro !== 'mouse') document.getElementById('fluxo-detalhe').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
   document.getElementById('fluxo-reiniciar').addEventListener('click', () => {
     ativos.clear();
     atual = -1;
-    document.getElementById('fluxo-detalhe').innerHTML = `<p class="det-dica" data-i18n="fluxo.dica">${esc(TEXTOS[lang]['fluxo.dica'])}</p>`;
+    document.getElementById('fluxo-detalhe').innerHTML = `<p class="det-dica" data-i18n="${chaveDica()}">${esc(TEXTOS[lang][chaveDica()])}</p>`;
     atualizar();
   });
   new ResizeObserver(() => { desenharFios(); atualizar(); }).observe(t); // fontes, idioma e largura mudam as posições
