@@ -80,7 +80,7 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
         aplicar(atual);
       }
       ry += (Math.sin(tempo * 0.00018) * 0.55 + mx * 0.5 - ry) * 0.05;
-      rx += (my * 0.3 - rx) * 0.05;
+      rx += (0.22 + my * 0.3 - rx) * 0.05; // inclinação base: mostra profundidade da treliça
       grupo.rotation.set(rx, ry, 0);
       grupo.position.x += (offX - grupo.position.x) * 0.05;
       renderer.render(cena, cam);

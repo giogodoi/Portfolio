@@ -16,7 +16,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0}
 html{scroll-behavior:auto}
-body{background:var(--void);color:var(--ink);font:400 17px/1.6 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--void);color:var(--ink);font:400 17px/1.6 var(--text);-webkit-font-smoothing:antialiased;overflow-x:clip} /* clip, não hidden: hidden quebraria o sticky do método */
 a{color:inherit}
 img{max-width:100%;display:block}
 :focus-visible{outline:2px solid var(--haze);outline-offset:3px;border-radius:4px}
@@ -60,7 +60,62 @@ nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:min(
 .acoes .lg-button{text-decoration:none}
 
 /* ============ seções ============ */
+section,.etapa{scroll-margin-top:88px}
 .secao{position:relative;padding:clamp(96px,14vh,160px) var(--gutter);border-top:1px solid var(--rule)}
+
+/* ============ método ============ */
+.metodo-cab{padding-bottom:24px}
+.metodo-cab h2{margin-bottom:20px}
+.metodo-trilho{position:relative;height:500vh}
+.metodo-palco{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:40px minmax(0,560px);
+  gap:clamp(20px,3vw,48px);align-items:center;padding:96px var(--gutter) 32px}
+.trilho{position:relative;height:min(52vh,420px);display:flex;justify-content:center}
+.trilho-barra{position:absolute;left:50%;top:0;bottom:0;width:2px;translate:-50% 0;background:var(--rule)}
+.trilho-barra i{position:absolute;inset:0;background:linear-gradient(var(--haze),var(--signal));transform-origin:top;transform:scaleY(0)}
+#trilho-passos{position:relative;list-style:none;padding:0;display:flex;flex-direction:column;justify-content:space-between;height:100%}
+#trilho-passos button{all:unset;cursor:pointer;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--void);
+  border:1px solid var(--rule);font:600 12px var(--text);color:var(--dim);transition:color .3s,border-color .3s,background .3s}
+#trilho-passos button:hover{color:var(--ink);border-color:var(--dim)}
+#trilho-passos button[aria-current]{color:#fff;background:var(--signal);border-color:var(--signal)}
+#trilho-passos button:focus-visible{outline:2px solid var(--haze);outline-offset:3px}
+.etapas{position:relative;height:100%}
+.etapa{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;translate:0 14px;
+  transition:opacity .5s ease,translate .5s ease,visibility 0s .5s}
+.etapa.ativa{opacity:1;visibility:visible;translate:0 0;transition:opacity .5s ease,translate .5s ease,visibility 0s}
+.etapa-num{display:flex;align-items:baseline;gap:12px;color:var(--dim);font-size:14px;margin-bottom:10px}
+.etapa-num span{font:900 44px/1 var(--display);font-variation-settings:'ROND' 100;color:var(--signal)}
+.etapa h3{font:800 clamp(30px,3.2vw,46px)/1.02 var(--display);font-variation-settings:'ROND' 100;margin-bottom:14px;text-wrap:balance}
+.etapa-resumo{color:color-mix(in srgb,var(--ink) 82%,transparent);max-width:34em;margin-bottom:14px}
+.praticas{padding:0;list-style:none;display:grid;gap:4px;margin-bottom:22px;font-size:15px;color:var(--haze)}
+.praticas li{position:relative;padding-left:20px}
+.praticas li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--signal)}
+.ev-cab{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:10px}
+.evidencias{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ev{display:block;padding:14px 16px;border-radius:12px;background:var(--panel);border:1px solid var(--rule);font-size:14px;line-height:1.5;
+  text-decoration:none;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+.ev-tipo{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);margin-bottom:4px}
+.ev-tipo b{font-weight:600;color:var(--ink);font-size:13px}
+.ev-exp{border-left:2px solid var(--signal)}
+a.ev{transition:border-color .25s,background .25s}
+a.ev:hover{border-color:#353a5c;background:#0E1020}
+.seta{width:14px;height:14px;margin-left:auto;color:var(--dim)}
+
+/* empilhado: mobile e movimento reduzido */
+@media(max-width:900px){
+  .metodo-trilho{height:auto}
+  .metodo-palco{position:static;height:auto;display:block;padding:0 var(--gutter) 64px}
+  .trilho{display:none}
+  .etapas{height:auto;display:grid;gap:72px}
+  .etapa{position:static;opacity:1;visibility:visible;translate:none}
+  .evidencias{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .metodo-trilho{height:auto}
+  .metodo-palco{position:static;height:auto;display:block;padding:0 var(--gutter) 64px}
+  .trilho{display:none}
+  .etapas{height:auto;display:grid;gap:72px}
+  .etapa{position:static;opacity:1;visibility:visible;translate:none;transition:none}
+}
 
 /* ============ rodapé ============ */
 .rodape{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:32px var(--gutter);border-top:1px solid var(--rule);color:var(--dim);font-size:14px}

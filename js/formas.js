@@ -104,15 +104,13 @@ function codigo(n, r) {
       x += w + 0.09;
     }
   }
-  const cx = Math.cos(-0.38), sx = Math.sin(-0.38), cy = Math.cos(0.32), sy = Math.sin(0.32);
+  // plano de frente para a câmera: a profundidade vem da oscilação do grupo
   let k = 0;
   for (let i = 0; i < n; i++) {
     const s = ((i + 0.5) / n) * total;
     while (k < tokens.length - 1 && tokens[k + 1].ini <= s) k++;
     const t = tokens[k];
-    const x0 = t.x + (s - t.ini), y0 = t.y + gauss(r) * 0.018, z0 = gauss(r) * 0.03;
-    const y1 = y0 * cx - z0 * sx, z1 = y0 * sx + z0 * cx; // inclina em X
-    poe(f, i, x0 * cy + z1 * sy, y1, -x0 * sy + z1 * cy, t.cor); // gira em Y
+    poe(f, i, t.x + (s - t.ini), t.y + gauss(r) * 0.018, gauss(r) * 0.03, t.cor);
   }
   return f;
 }
