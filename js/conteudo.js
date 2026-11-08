@@ -136,6 +136,30 @@ export const UI = {
   },
 };
 
+// Stacks do carrossel (currículo + perfil do GitHub). si = ícone do Simple Icons; glifo = desenho próprio
+// para conceitos sem logo ou marcas que o Simple Icons não distribui (Microsoft)
+export const ICONES_CDN = 'https://cdn.jsdelivr.net/npm/simple-icons@16.33.0/icons/';
+export const STACKS = [
+  [
+    { nome: 'Python', si: 'python' }, { nome: 'Java', si: 'openjdk' }, { nome: 'C++', si: 'cplusplus' },
+    { nome: 'SQL', glifo: 'sql' }, { nome: 'PostgreSQL', si: 'postgresql' }, { nome: 'NoSQL', si: 'mongodb' },
+    { nome: 'Redis', si: 'redis' }, { nome: 'Power BI', glifo: 'bi' }, { nome: 'Docker', si: 'docker' },
+    { nome: 'Kubernetes', si: 'kubernetes' }, { nome: 'Git', si: 'git' }, { nome: 'GitHub', si: 'github' },
+  ],
+  [
+    { nome: 'Machine Learning', si: 'scikitlearn' }, { nome: 'PyTorch', si: 'pytorch' }, { nome: 'TensorFlow', si: 'tensorflow' },
+    { nome: 'MLflow', si: 'mlflow' }, { nome: 'Pandas', si: 'pandas' }, { nome: 'Jupyter', si: 'jupyter' },
+    { nome: 'Hugging Face', si: 'huggingface' }, { nome: 'LangChain', si: 'langchain' }, { nome: 'Ollama', si: 'ollama' },
+    { nome: 'n8n', si: 'n8n' }, { nome: 'RAG', glifo: 'rag' }, { nome: 'Azure ML', glifo: 'nuvem' },
+  ],
+  [
+    { nome: 'MVC', glifo: 'mvc' }, { nome: 'MVVM', glifo: 'mvvm' }, { nome: { pt: 'Microsserviços', en: 'Microservices' }, glifo: 'micro' },
+    { nome: 'CI/CD', si: 'githubactions' }, { nome: { pt: 'Testes', en: 'Testing' }, glifo: 'teste' }, { nome: 'Postman', si: 'postman' },
+    { nome: 'Spring Boot', si: 'springboot' }, { nome: 'Scrum', glifo: 'scrum' }, { nome: 'Kanban', glifo: 'kanban' },
+    { nome: 'Figma', si: 'figma' }, { nome: 'Miro', si: 'miro' },
+  ],
+];
+
 // Fluxo de agente no n8n: 5 blocos que acendem ao passar o mouse, tocar ou focar
 export const FLUXO = [
   {
