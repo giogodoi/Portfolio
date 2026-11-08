@@ -1,4 +1,5 @@
-import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS, ICONES_CDN } from './conteudo.js';
+import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS } from './conteudo.js';
+import { ICONES } from './icones.js';
 import { esc, nomeProj } from './metodo.js';
 
 const local = (v, lang) => (Array.isArray(v) || typeof v === 'string' ? v : v[lang]);
@@ -71,7 +72,9 @@ export function renderStacks(lang) {
   document.querySelectorAll('.stack-trilha').forEach((ul) => {
     const blocos = (oculto) => STACKS[+ul.dataset.grupo].map((s) => {
       const nome = typeof s.nome === 'string' ? s.nome : s.nome[lang];
-      const ic = s.si ? `<span class="stk-ic" style="--ic:url('${ICONES_CDN}${s.si}.svg')"></span>` : `<span class="stk-ic stk-glifo">${GLIFOS[s.glifo]}</span>`;
+      const ic = s.si
+        ? `<span class="stk-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${ICONES[s.si]}"/></svg></span>`
+        : `<span class="stk-ic">${GLIFOS[s.glifo]}</span>`;
       const rotulo = (typeof s.nome === 'string' ? s.nome : s.nome.en).toLowerCase().replace(/\s+/g, '-');
       // cada bloco é uma janela de app: barra com 3 bolinhas + rótulo, corpo com ícone e nome
       return `<li${oculto ? ' aria-hidden="true" class="stk-copia"' : ''}>
@@ -80,6 +83,11 @@ export function renderStacks(lang) {
     }).join('');
     ul.innerHTML = blocos(false) + blocos(true);
   });
+}
+
+export function pausarStacksForaDaTela() {
+  const st = document.querySelector('.stacks');
+  new IntersectionObserver(([e]) => st.classList.toggle('pausado', !e.isIntersecting), { rootMargin: '120px 0px' }).observe(st);
 }
 
 export function renderProjetos(lang) {

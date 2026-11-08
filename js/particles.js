@@ -38,7 +38,7 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
   grupo.add(new THREE.Points(geo, mat));
   cena.add(grupo);
 
-  let mx = 0, my = 0, offX = 0, mexendo = false;
+  let mx = 0, my = 0, offX = 0, mexendo = false, dormindo = false;
   // destino = forma interpolada no progresso p. Os pontos andam direto até ele, então um pulo
   // grande (clique na nav, rolagem rápida) não atravessa todas as formas do caminho
   const alvoPos = formas[0].pos.slice(), alvoCor = formas[0].cor.slice();
@@ -90,6 +90,7 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
     }, { passive: true });
     let ry = 0, rx = 0;
     (function quadro(tempo) {
+      if (dormindo && !mexendo) { requestAnimationFrame(quadro); return; } // quase invisível: poupa a GPU
       if (mexendo) mexendo = aproximar();
       ry += (Math.sin(tempo * 0.00018) * 0.55 + mx * 0.5 - ry) * 0.05;
       rx += (0.22 + my * 0.3 - rx) * 0.05; // inclinação base: mostra profundidade da treliça
@@ -102,6 +103,7 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
 
   let ultimoP = 0;
   return {
+    dormir(v) { dormindo = v; },
     progresso(p) {
       p = Math.max(0, Math.min(formas.length - 1, p));
       if (Math.abs(p - ultimoP) < 1e-4) return;

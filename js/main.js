@@ -1,7 +1,7 @@
 import { TEXTOS } from './conteudo.js';
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
 import { renderFluxo, iniciarFluxo, chaveDica } from './fluxo.js';
-import { renderStacks, renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
+import { renderStacks, pausarStacksForaDaTela, renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IDIOMAS = ['pt', 'en'];
@@ -69,6 +69,7 @@ const ioGrifo = new IntersectionObserver((es) => es.forEach((e) => {
 }), { threshold: 0.6 });
 document.querySelectorAll('h2[data-grifo]').forEach((h) => ioGrifo.observe(h));
 iniciarFluxo();
+pausarStacksForaDaTela();
 
 // ---------- rolagem suave só para quem não pediu movimento reduzido ----------
 let lenis = null;
