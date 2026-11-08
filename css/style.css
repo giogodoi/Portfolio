@@ -56,7 +56,8 @@ nav.topo{position:fixed;top:16px;left:50%;translate:-50% 0;z-index:20;width:max-
 @media(max-width:420px){.marca span{display:none}}
 
 /* ============ hero ============ */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:140px var(--gutter) clamp(48px,9vh,96px)}
+/* texto centrado na vertical: o centro do bloco coincide com o centro da esfera (centro da tela) */
+.hero{position:relative;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:flex;align-items:center;padding:120px var(--gutter) 48px}
 .hero-txt{position:relative;z-index:2;max-width:1120px}
 .quem{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:15px;margin-bottom:22px}
 .quem span{color:var(--dim)}
