@@ -1,4 +1,4 @@
-import { FLUXO, UI, GITHUB, TEXTOS } from './conteudo.js';
+import { FLUXO, FLUXO_REPO, FLUXO_DEMO, UI, GITHUB, TEXTOS } from './conteudo.js';
 import { esc } from './metodo.js';
 
 const ic = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -66,8 +66,8 @@ function atualizar() {
     <p class="det-num">${u.bloco.replace('{n}', atual + 1)}</p>
     <h3>${esc(n[lang].titulo)}</h3>
     <p class="det-txt">${esc(n[lang].texto)}</p>
-    <ul class="det-tags">${n.tags.map((tg) => `<li>${esc(tg)}</li>`).join('')}</ul>
-    ${n.repo ? `<p class="det-links"><a href="${GITHUB}/${n.repo}" target="_blank" rel="noopener">${u.verProjeto}</a><a href="${esc(n.demo)}" target="_blank" rel="noopener">${u.verDemo}</a></p>` : ''}`;
+    <ul class="det-tags">${n.tags[lang].map((tg) => `<li>${esc(tg)}</li>`).join('')}</ul>
+    <p class="det-links"><a href="${GITHUB}/${FLUXO_REPO}" target="_blank" rel="noopener">${u.verProjeto}</a><a href="${FLUXO_DEMO}" target="_blank" rel="noopener">${u.verDemo}</a></p>`;
 }
 
 function ativar(i) {
