@@ -38,17 +38,33 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
   grupo.add(new THREE.Points(geo, mat));
   cena.add(grupo);
 
-  let alvo = 0, atual = 0, mx = 0, my = 0, offX = 0;
+  let mx = 0, my = 0, offX = 0, mexendo = false;
+  // destino = forma interpolada no progresso p. Os pontos andam direto até ele, então um pulo
+  // grande (clique na nav, rolagem rápida) não atravessa todas as formas do caminho
+  const alvoPos = formas[0].pos.slice(), alvoCor = formas[0].cor.slice();
 
-  function aplicar(p) {
+  function destino(p, outPos, outCor) {
     const i = Math.min(Math.floor(p), formas.length - 2), t = suave(Math.min(1, p - i));
     const a = formas[i], b = formas[i + 1];
-    for (let k = 0; k < pos.length; k++) {
-      pos[k] = a.pos[k] + (b.pos[k] - a.pos[k]) * t;
-      cor[k] = a.cor[k] + (b.cor[k] - a.cor[k]) * t;
+    for (let k = 0; k < outPos.length; k++) {
+      outPos[k] = a.pos[k] + (b.pos[k] - a.pos[k]) * t;
+      outCor[k] = a.cor[k] + (b.cor[k] - a.cor[k]) * t;
     }
+  }
+  function enviar() {
     geo.attributes.position.needsUpdate = true;
     geo.attributes.color.needsUpdate = true;
+  }
+  function aproximar() { // um passo em direção ao destino; devolve se ainda falta andar
+    let falta = 0;
+    for (let k = 0; k < pos.length; k++) {
+      const d = alvoPos[k] - pos[k];
+      pos[k] += d * 0.09;
+      cor[k] += (alvoCor[k] - cor[k]) * 0.09;
+      if (d > falta || -d > falta) falta = Math.abs(d);
+    }
+    enviar();
+    return falta > 0.002;
   }
 
   function tamanho() {
@@ -65,7 +81,6 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
   tamanho();
 
   if (reduz) {
-    aplicar(0);
     renderer.render(cena, cam);
   } else {
     addEventListener('pointermove', (e) => {
@@ -75,10 +90,7 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
     }, { passive: true });
     let ry = 0, rx = 0;
     (function quadro(tempo) {
-      if (Math.abs(alvo - atual) > 1e-4) {
-        atual += (alvo - atual) * 0.08;
-        aplicar(atual);
-      }
+      if (mexendo) mexendo = aproximar();
       ry += (Math.sin(tempo * 0.00018) * 0.55 + mx * 0.5 - ry) * 0.05;
       rx += (0.22 + my * 0.3 - rx) * 0.05; // inclinação base: mostra profundidade da treliça
       grupo.rotation.set(rx, ry, 0);
@@ -88,10 +100,15 @@ export function iniciarParticulas(canvas, { reduz = false } = {}) {
     })(0);
   }
 
+  let ultimoP = 0;
   return {
     progresso(p) {
-      alvo = Math.max(0, Math.min(formas.length - 1, p));
-      if (reduz) { atual = alvo; aplicar(atual); renderer.render(cena, cam); }
+      p = Math.max(0, Math.min(formas.length - 1, p));
+      if (Math.abs(p - ultimoP) < 1e-4) return;
+      ultimoP = p;
+      if (reduz) { destino(p, pos, cor); enviar(); renderer.render(cena, cam); return; }
+      destino(p, alvoPos, alvoCor);
+      mexendo = true;
     },
   };
 }
