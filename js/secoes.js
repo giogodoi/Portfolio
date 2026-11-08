@@ -72,7 +72,11 @@ export function renderStacks(lang) {
     const blocos = (oculto) => STACKS[+ul.dataset.grupo].map((s) => {
       const nome = typeof s.nome === 'string' ? s.nome : s.nome[lang];
       const ic = s.si ? `<span class="stk-ic" style="--ic:url('${ICONES_CDN}${s.si}.svg')"></span>` : `<span class="stk-ic stk-glifo">${GLIFOS[s.glifo]}</span>`;
-      return `<li${oculto ? ' aria-hidden="true" class="stk-copia"' : ''}>${ic}<span>${esc(nome)}</span></li>`;
+      const rotulo = (typeof s.nome === 'string' ? s.nome : s.nome.en).toLowerCase().replace(/\s+/g, '-');
+      // cada bloco é uma janela de app: barra com 3 bolinhas + rótulo, corpo com ícone e nome
+      return `<li${oculto ? ' aria-hidden="true" class="stk-copia"' : ''}>
+        <span class="stk-barra" aria-hidden="true"><i></i><i></i><i></i><span>~/${esc(rotulo)}</span></span>
+        <span class="stk-corpo">${ic}<span>${esc(nome)}</span></span></li>`;
     }).join('');
     ul.innerHTML = blocos(false) + blocos(true);
   });
