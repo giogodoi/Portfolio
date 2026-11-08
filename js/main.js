@@ -1,7 +1,7 @@
 import { TEXTOS } from './conteudo.js';
 import { renderMetodo, iniciarScrollMetodo } from './metodo.js';
 import { renderFluxo, iniciarFluxo } from './fluxo.js';
-import { renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
+import { renderStacks, renderTrajetoria, iniciarLinhaTempo, renderProjetos, renderPosts, postsValidos } from './secoes.js';
 
 export const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IDIOMAS = ['pt', 'en'];
@@ -39,6 +39,7 @@ const medirLinha = iniciarLinhaTempo();
 function renderTudo() {
   renderMetodo(lang, posts);
   renderFluxo(lang);
+  renderStacks(lang);
   renderTrajetoria(lang);
   medirLinha();
   renderProjetos(lang);

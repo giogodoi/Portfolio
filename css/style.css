@@ -72,10 +72,29 @@ section,.etapa{scroll-margin-top:88px}
 .fatos div{display:grid;grid-template-columns:clamp(110px,10.5vw,152px) 1fr;gap:18px;align-items:baseline;padding-bottom:22px;border-bottom:1px solid var(--rule)}
 .fatos dt{font:900 clamp(40px,4.4vw,60px)/1 var(--display);font-variation-settings:'ROND' 100;color:var(--haze)}
 .fatos dd{font-size:15px;color:color-mix(in srgb,var(--ink) 78%,transparent)}
-.habilidades{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-top:32px;border-top:1px solid var(--rule)}
-.habilidades dt{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:6px}
-.habilidades dd{font-size:15px;line-height:1.7}
-@media(max-width:900px){.sobre{grid-template-columns:1fr}.habilidades{grid-template-columns:1fr}.fatos div{grid-template-columns:96px 1fr}}
+/* carrossel de stacks: 3 faixas, a do meio no sentido contrário */
+.stacks{grid-column:1/-1;min-width:0;display:grid;gap:28px;padding-top:36px;border-top:1px solid var(--rule)}
+.stack-grupo{min-width:0}
+.stack-grupo h3{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:12px}
+.stack-faixa{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.stack-trilha{list-style:none;padding:4px 0;display:flex;gap:12px;width:max-content;animation:desliza 46s linear infinite}
+.stack-faixa.reversa .stack-trilha{animation-direction:reverse;animation-duration:52s}
+.stack-faixa:hover .stack-trilha{animation-play-state:paused}
+@keyframes desliza{to{transform:translateX(calc(-50% - 6px))}}
+.stack-trilha li{flex:none;width:118px;height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  border:1px solid var(--rule);border-radius:16px;background:var(--panel);font-size:13px;font-weight:500;text-align:center;line-height:1.2;padding:0 8px;
+  color:color-mix(in srgb,var(--ink) 85%,transparent);transition:border-color .25s,background .25s}
+.stack-trilha li:hover{border-color:var(--signal);background:rgb(60 72 228 / .12)}
+.stk-ic{width:30px;height:30px;flex:none;color:var(--haze);background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat;transition:color .25s}
+.stk-glifo{background:none;-webkit-mask:none;mask:none}
+.stk-glifo svg{width:100%;height:100%}
+.stack-trilha li:hover .stk-ic{color:var(--ink)}
+@media(max-width:900px){.sobre{grid-template-columns:1fr}.fatos div{grid-template-columns:96px 1fr}.stack-trilha li{width:104px;height:96px}}
+@media(prefers-reduced-motion:reduce){
+  .stack-trilha{animation:none;width:auto;flex-wrap:wrap}
+  .stack-faixa{-webkit-mask-image:none;mask-image:none}
+  .stk-copia{display:none!important}
+}
 
 /* ============ agentes (fluxo n8n simulado) ============ */
 .agentes h2{max-width:14em;margin-bottom:20px;text-wrap:balance}

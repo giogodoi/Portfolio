@@ -1,4 +1,4 @@
-import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB } from './conteudo.js';
+import { TRAJETORIA, FORMACAO, CERTIFICACOES, PROJETOS, ETAPAS, UI, GITHUB, STACKS, ICONES_CDN } from './conteudo.js';
 import { esc } from './metodo.js';
 
 const local = (v, lang) => (Array.isArray(v) || typeof v === 'string' ? v : v[lang]);
@@ -50,6 +50,32 @@ export function iniciarLinhaTempo() {
   addEventListener('resize', medir);
   document.fonts?.ready.then(medir);
   return medir;
+}
+
+const g = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const GLIFOS = {
+  sql: g('<ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>'),
+  bi: g('<path d="M4 20h16"/><rect x="6" y="11" width="3" height="7"/><rect x="10.5" y="6" width="3" height="12"/><rect x="15" y="9" width="3" height="9"/>'),
+  rag: g('<path d="M6 3h8l4 4v6"/><path d="M14 3v4h4"/><path d="M6 3v18h6"/><circle cx="16.5" cy="17.5" r="3"/><path d="m18.7 19.7 2.3 2.3"/>'),
+  nuvem: g('<path d="M7 18h10a4 4 0 0 0 .6-8A6 6 0 0 0 6.2 11 3.5 3.5 0 0 0 7 18z"/>'),
+  mvc: g('<rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M11 8l-4 8M13 8l4 8M9 18.5h6"/>'),
+  mvvm: g('<rect x="2.5" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16.5" y="9.5" width="5" height="5" rx="1"/><path d="M7.5 12h2M14.5 11h2M16.5 13h-2"/>'),
+  micro: g('<path d="m8 3 3.5 2v4L8 11 4.5 9V5z"/><path d="m16 3 3.5 2v4L16 11l-3.5-2V5z"/><path d="m12 12.5 3.5 2v4L12 20.5l-3.5-2v-4z"/>'),
+  teste: g('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12.5 2.5 2.5L16 9.5"/>'),
+  scrum: g('<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/><circle cx="12" cy="12" r="2"/>'),
+  kanban: g('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/><path d="M5 7.5h2M11 7.5h2M11 10.5h2M17 7.5h2"/>'),
+};
+
+// Carrossel de stacks: cada grupo é uma faixa que desliza; a segunda cópia existe só para o loop sem emenda
+export function renderStacks(lang) {
+  document.querySelectorAll('.stack-trilha').forEach((ul) => {
+    const blocos = (oculto) => STACKS[+ul.dataset.grupo].map((s) => {
+      const nome = typeof s.nome === 'string' ? s.nome : s.nome[lang];
+      const ic = s.si ? `<span class="stk-ic" style="--ic:url('${ICONES_CDN}${s.si}.svg')"></span>` : `<span class="stk-ic stk-glifo">${GLIFOS[s.glifo]}</span>`;
+      return `<li${oculto ? ' aria-hidden="true" class="stk-copia"' : ''}>${ic}<span>${esc(nome)}</span></li>`;
+    }).join('');
+    ul.innerHTML = blocos(false) + blocos(true);
+  });
 }
 
 export function renderProjetos(lang) {
