@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR" data-glass-appearance="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giovane Oliveira · Software Engineer & Data Scientist</title>
+<meta name="description" content="Portfólio de Giovane Oliveira: engenharia de software e ciência de dados com IA, do contexto à entrega, com projetos reais em cada etapa.">
+<link rel="canonical" href="https://giogodoi.github.io/Portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://giogodoi.github.io/Portfolio/">
+<meta property="og:title" content="Giovane Oliveira · Do contexto à entrega">
+<meta property="og:description" content="Engenharia de software e ciência de dados com IA, com projetos reais em cada etapa do método.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23050507'/%3E%3Cg fill='%23CCD8FC'%3E%3Ccircle cx='4' cy='4' r='1.3'/%3E%3Ccircle cx='8' cy='4' r='1.3'/%3E%3Ccircle cx='4' cy='8' r='1.3'/%3E%3Ccircle cx='12' cy='12' r='1.3'/%3E%3C/g%3E%3Ccircle cx='8' cy='8' r='1.6' fill='%233C48E4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@100,600..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
+<link rel="stylesheet" href="vendor/liquid-glass.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="vendor/liquid-glass.js" defer></script>
+</head>
+<body>
+<a class="pular" href="#conteudo" data-i18n="nav.pular">Pular para o conteúdo</a>
+<canvas id="particulas" aria-hidden="true"></canvas>
+
+<!-- clear + dim: refração visível na borda e rótulos legíveis; sem blur progressivo atrás, que achatava o vidro -->
+<nav class="glass topo" data-glass="clear" data-glass-dim data-glass-refraction="14" data-glass-bezel="14" data-glass-dispersion="0.03" aria-label="Principal" data-i18n-aria="nav.aria">
+  <a class="marca" href="#inicio">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><g fill="#CCD8FC"><circle cx="3" cy="3" r="1.4"/><circle cx="8" cy="3" r="1.4"/><circle cx="3" cy="8" r="1.4"/><circle cx="13" cy="13" r="1.4"/></g><circle cx="8" cy="8" r="1.8" fill="#3C48E4"/></svg>
+    <span>Giovane Oliveira</span>
+  </a>
+  <ul class="links">
+    <li><a href="#metodo" data-i18n="nav.metodo">Método</a></li>
+    <li><a href="#agentes" data-i18n="nav.agentes">Agentes</a></li>
+    <li><a href="#trajetoria" data-i18n="nav.trajetoria">Trajetória</a></li>
+    <li><a href="#projetos" data-i18n="nav.projetos">Projetos</a></li>
+    <li><a href="#posts" data-i18n="nav.posts">Posts</a></li>
+  </ul>
+  <div class="lg-tabs idioma" aria-label="Idioma" data-i18n-aria="nav.idioma">
+    <div class="lg-tabs-list" role="tablist">
+      <button role="tab" aria-selected="true" data-lang="pt"><span>PT</span></button>
+      <button role="tab" data-lang="en"><span>EN</span></button>
+    </div>
+  </div>
+  <a class="glass lg-button" data-size="small" data-glass-interactive data-glass-tint="#3C48E4" href="#contato"><span data-i18n="nav.cta">Fale comigo</span></a>
+</nav>
+
+<main id="conteudo">
+  <header class="hero" id="inicio">
+    <div class="hero-txt">
+      <p class="quem"><strong>Giovane Oliveira</strong> <span>Software Engineer &amp; Data Scientist</span></p>
+      <h1 data-i18n="hero.titulo">Do contexto à entrega.</h1>
+      <p class="lead" data-i18n="hero.lead">Engenharia de software e ciência de dados com IA. Antes de escrever código, entendo o problema e os dados. Depois, reviso o que entrego.</p>
+      <p class="prova" data-i18n="hero.prova">Na Agência Zetta, entreguei um MVP com RAG e agentes em 2,5 semanas. O prazo previsto era de 2 meses.</p>
+      <div class="acoes">
+        <a class="glass lg-button" data-size="large" data-glass-interactive data-glass-tint="#3C48E4" href="#metodo"><span data-i18n="hero.cta1">Ver o método</span></a>
+        <a class="glass lg-button" data-size="large" data-glass-interactive href="https://github.com/giogodoi" target="_blank" rel="noopener"><span data-i18n="hero.cta2">Ver meu GitHub</span></a>
+      </div>
+    </div>
+  </header>
+
+  <section class="secao sobre" id="sobre" aria-labelledby="sobre-titulo">
+    <div class="sobre-txt">
+      <h2 id="sobre-titulo" data-i18n="sobre.titulo">Engenharia e dados, com foco em quem usa.</h2>
+      <p class="lead" data-i18n="sobre.p1">Estudo Ciência da Computação na UFLA (2024–2028), sou Software Engineer na Agência Zetta e pesquisador no NIAD, o núcleo de IA e ciência de dados da universidade. Trabalho onde automação, inteligência artificial e engenharia de software se encontram: RAG, agentes e pipelines de dados que tiram trabalho manual do caminho.</p>
+      <p class="lead" data-i18n="sobre.p2">Uso Git com fluxo de branches, Scrum e Kanban, e prefiro código limpo a código esperto.</p>
+    </div>
+    <dl class="fatos">
+      <div><dt data-i18n="sobre.f1n">2,5</dt><dd data-i18n="sobre.f1">semanas para entregar um MVP com RAG e agentes. O previsto era 2 meses.</dd></div>
+      <div><dt>4</dt><dd data-i18n="sobre.f2">certificações da Anthropic: Claude, Claude Code, MCP e AI Fluency.</dd></div>
+      <div><dt>2026</dt><dd data-i18n="sobre.f3">Destaque em Desenvolvimento de Software pela Agência Zetta.</dd></div>
+    </dl>
+    <div class="stacks">
+      <div class="stack-grupo"><h3 data-i18n="sobre.h1">Linguagens e ferramentas</h3><div class="stack-faixa"><ul class="stack-trilha" data-grupo="0"></ul></div></div>
+      <div class="stack-grupo"><h3 data-i18n="sobre.h2">Dados e IA</h3><div class="stack-faixa reversa"><ul class="stack-trilha" data-grupo="1"></ul></div></div>
+      <div class="stack-grupo"><h3 data-i18n="sobre.h3">Arquitetura e processo</h3><div class="stack-faixa"><ul class="stack-trilha" data-grupo="2"></ul></div></div>
+    </div>
+  </section>
+
+  <section class="metodo" id="metodo" aria-labelledby="metodo-titulo">
+    <div class="secao metodo-cab">
+      <h2 id="metodo-titulo" data-i18n="metodo.titulo">Um método, cinco etapas.</h2>
+      <p class="lead" data-i18n="metodo.lead">As boas práticas que sigo em todo projeto, cada uma com um trabalho real onde apliquei.</p>
+    </div>
+    <div class="metodo-trilho">
+      <div class="metodo-palco">
+        <nav class="trilho" aria-label="Etapas" data-i18n-aria="metodo.etapas">
+          <div class="trilho-barra" aria-hidden="true"><i></i></div>
+          <ol id="trilho-passos"></ol>
+        </nav>
+        <div class="etapas" id="etapas"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao agentes" id="agentes" aria-labelledby="agentes-titulo">
+    <h2 id="agentes-titulo" data-i18n="fluxo.titulo">Agentes de IA, do primeiro contato à memória.</h2>
+    <p class="lead" data-i18n="fluxo.lead">Monto fluxos no n8n que ligam canais de conversa, modelos de IA e bancos de dados, com a LGPD dentro do fluxo e não remendada no fim.</p>
+    <div class="fluxo-tela" id="fluxo-tela" role="group" aria-label="Fluxo de agente de IA no n8n" data-i18n-aria="fluxo.aria">
+      <div class="fluxo-barra">
+        <p><i aria-hidden="true"></i><span id="fluxo-status" aria-live="polite">0 de 5 blocos executados</span></p>
+        <button type="button" class="fluxo-reiniciar" id="fluxo-reiniciar" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5V5h-2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="fluxo.reiniciar">Executar de novo</span></button>
+      </div>
+      <svg class="fluxo-fios" aria-hidden="true"></svg>
+      <ol class="fluxo-nos" id="fluxo-nos"></ol>
+    </div>
+    <div class="fluxo-detalhe" id="fluxo-detalhe" aria-live="polite">
+      <p class="det-dica" data-i18n="fluxo.dica">Passe o mouse ou toque nos blocos para executar o fluxo.</p>
+    </div>
+  </section>
+
+  <section class="secao trajetoria" id="trajetoria" aria-labelledby="trajetoria-titulo">
+    <h2 id="trajetoria-titulo" data-i18n="trajetoria.titulo">De onde vem o método.</h2>
+    <p class="lead" data-i18n="trajetoria.lead">Pesquisa, empresa júnior e agência de inovação: cada etapa foi aprendida em algum desses lugares.</p>
+    <ol class="linha-tempo" id="linha-tempo"></ol>
+    <h3 class="cert-titulo" data-i18n="trajetoria.certs">Certificações</h3>
+    <ul class="certificacoes" id="certificacoes"></ul>
+  </section>
+
+  <section class="secao projetos" id="projetos" aria-labelledby="projetos-titulo">
+    <h2 id="projetos-titulo" data-i18n="projetos.titulo">Todo o código está aberto.</h2>
+    <p class="lead" data-i18n="projetos.lead">Repositórios públicos no GitHub, do mais recente ao mais antigo.</p>
+    <ul class="lista-projetos" id="lista-projetos"></ul>
+  </section>
+
+  <section class="secao posts" id="posts" aria-labelledby="posts-titulo">
+    <h2 id="posts-titulo" class="posts-titulo" data-i18n-html="posts.titulo">Engenharia, dados e IA. Temas diferentes, uma coisa em comum: <span>método</span>.</h2>
+    <p class="lead" data-i18n="posts.lead">Escrevo no LinkedIn sobre o que aprendo construindo.</p>
+    <div class="posts-grade" id="posts-grade" hidden></div>
+    <div class="posts-cta">
+      <a class="glass lg-button" data-size="large" data-glass-interactive data-glass-tint="#3C48E4" href="https://www.linkedin.com/in/giovane-goliveira/" target="_blank" rel="noopener"><span data-i18n="posts.cta">Faça parte da minha rede</span></a>
+    </div>
+  </section>
+
+  <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
+    <h2 id="contato-titulo" data-i18n="contato.titulo">Tem um problema para resolver? Começamos pelo contexto.</h2>
+    <p class="lead" data-i18n="contato.lead">Respondo por e-mail e pelo LinkedIn.</p>
+    <a class="contato-email" href="mailto:giovanefelipego@hotmail.com">giovanefelipego@hotmail.com</a>
+    <ul class="contato-links">
+      <li><a href="https://www.linkedin.com/in/giovane-goliveira/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/giogodoi" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="rodape">
+  <p>© 2026 Giovane Oliveira</p>
+  <p data-i18n="rodape.feito">Feito à mão com HTML, CSS e Three.js.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js"}}</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
