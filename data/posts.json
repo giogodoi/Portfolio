@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "url": "https://www.linkedin.com/posts/giovane-goliveira_webmedia2026-multimaeddia-web-ugcPost-7522780600575979521-2ctb/",
+    "data": "2026-11-01",
+    "titulo": "Voluntário na organização do WebMedia 2026",
+    "resumo": "32º Simpósio Brasileiro de Sistemas Multimídia e Web, promovido pela Sociedade Brasileira de Computação (SBC) e realizado na UFLA, de 23 a 27 de outubro.",
+    "idioma": "pt"
+  },
+  {
+    "url": "https://www.linkedin.com/posts/giovane-goliveira_avanaexacafaez-embrapacafaez-inovaaexaeto-ugcPost-7510465233543532544-_4su/",
+    "data": "2026-09-28",
+    "titulo": "Meu primeiro hackathon: Avança Café",
+    "resumo": "Programa da Embrapa Café com apoio dos Parques Científicos e Tecnológicos dos Ipês (IpêTech). Uma experiência incrível.",
+    "etapa": "contexto",
+    "idioma": "pt"
+  },
+  {
+    "url": "https://www.linkedin.com/posts/giovane-goliveira_zettalab2025-ufla-desenvolvimentodesoftware-ugcPost-7506516207701950464-0YnV/",
+    "data": "2026-09-17",
+    "titulo": "Destaque em Desenvolvimento de Software no ZettaLab 2025",
+    "resumo": "Certificado de destaque na trilha de Desenvolvimento de Software da 2ª edição do ZettaLab, entregue na Universidade Federal de Lavras (UFLA).",
+    "etapa": "entrega",
+    "idioma": "pt"
+  }
+]
